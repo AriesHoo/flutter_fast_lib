@@ -1,0 +1,11 @@
+{
+  "appName": "FastLib",
+  "tabIndex": "Index",
+  "tabWeb": "WebApp",
+  "tabExplore": "Explore",
+  "tabArticleTopic": "Topic",
+  "tabArticleNews": "News",
+  "tabArticleTechNews": "TechNews",
+  "qqTitleBar": "QQ渐变标题栏",
+  "loadingUtilPage": "loadingUtilPage"
+}

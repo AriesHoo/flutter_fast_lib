@@ -1,4 +1,4 @@
-package me.aries.flutter_fast_lib_example
+package me.aries.flutterfastlib.example
 
 import io.flutter.embedding.android.FlutterActivity
 

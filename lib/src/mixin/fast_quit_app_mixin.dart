@@ -1,15 +1,19 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 
 ///[FastMainPage]拦截退出App
 ///[FastTabBar]拦截退出App   --Android 系统行为
 mixin FastQuitAppMixin {
-
   String get tipQuitApp => quitApp ? '再按一次退出程序' : '再按一次退回桌面';
 
   ///退出返回键--主要Android
   int? quitBack(bool firstBack) {
     bool canPop = Navigator.of(currentContext).canPop();
+
+    FastLogUtil.e(
+        'canPop:$canPop;currentContext:$currentContext;firstBack:$firstBack',
+        tag: 'canPopTag');
 
     ///canPop说明非栈顶Router
     if (canPop) {

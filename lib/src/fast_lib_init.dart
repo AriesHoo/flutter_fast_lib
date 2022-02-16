@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fast_lib/src/fast_manager.dart';
@@ -166,8 +167,7 @@ class _FastLibInitState extends State<FastLibInit> {
 
     ///路由
     List<NavigatorObserver> observers = [];
-    if (widget.navigatorObservers != null &&
-        widget.navigatorObservers!.isNotEmpty) {
+    if (ObjectUtil.isNotEmpty(widget.navigatorObservers)) {
       observers.addAll(widget.navigatorObservers!);
     }
 
@@ -213,7 +213,7 @@ class _FastLibInitState extends State<FastLibInit> {
                 ///当前有获取焦点的控件
                 if (currentFocus.focusedChild != null) {
                   ///关闭软键盘方式一
-                  FocusManager.instance.primaryFocus!.unfocus();
+                  FocusManager.instance.primaryFocus?.unfocus();
 
                   ///关闭软键盘方式二-channel
                   // SystemChannels.textInput.invokeMethod('TextInput.hide');

@@ -28,8 +28,8 @@ mixin FastNetworkMixin {
   ///请求头
   Map<String, dynamic>? get headers => null;
 
-  ///连接超时-连接超时10s足够确认是否能连接上
-  int? get connectTimeout => 10 * 1000;
+  ///连接超时-连接超时30s足够确认是否能连接上
+  int? get connectTimeout => 30 * 1000;
 
   ///接收超时-文件下载
   int? get receiveTimeout => 60 * 1000;
@@ -38,9 +38,16 @@ mixin FastNetworkMixin {
   int? get sendTimeout => 60 * 1000;
 
   ///日志拦截器
-  FastLogInterceptor? get logInterceptor => FastLogInterceptor(
-        debug: FastManager.getInstance().logMixin.debug,
-        tag: '${FastManager.getInstance().logMixin.tag}_FastLogInterceptor',
+  FastLogInterceptor? get logInterceptor =>
+      FastLogInterceptor(
+        debug: FastManager
+            .getInstance()
+            .logMixin
+            .debug,
+        tag: '${FastManager
+            .getInstance()
+            .logMixin
+            .tag}_FastLogInterceptor',
       );
 
   ///单个拦截器
@@ -51,15 +58,24 @@ mixin FastNetworkMixin {
 
   ///加载中loading
   Widget? get networkLoadingWidget =>
-      FastManager.getInstance().loadingMixin.loadingWidget;
+      FastManager
+          .getInstance()
+          .loadingMixin
+          .loadingWidget;
 
   ///加载中文本信息
   String? get networkLoadingText =>
-      FastManager.getInstance().loadingMixin.loadingText;
+      FastManager
+          .getInstance()
+          .loadingMixin
+          .loadingText;
 
   ///加载中文本信息样式
   TextStyle? get networkLoadingTextStyle =>
-      FastManager.getInstance().loadingMixin.loadingTextStyle;
+      FastManager
+          .getInstance()
+          .loadingMixin
+          .loadingTextStyle;
 
   ///处理异常
   Future<BasisViewStateError> handleError({
@@ -83,12 +99,15 @@ mixin FastNetworkMixin {
       clickClose: canceledOnTouchOutside,
       backButtonBehavior: BackButtonBehavior.close,
       builder: (_) =>
-          FastManager.getInstance().loadingMixin.loadingWidgetBuilder(
-                _,
-                loading ?? networkLoadingWidget,
-                messageText ?? networkLoadingText,
-                messageStyle ?? networkLoadingTextStyle,
-              ),
+          FastManager
+              .getInstance()
+              .loadingMixin
+              .loadingWidgetBuilder(
+            _,
+            loading ?? networkLoadingWidget,
+            messageText ?? networkLoadingText,
+            messageStyle ?? networkLoadingTextStyle,
+          ),
     );
   }
 

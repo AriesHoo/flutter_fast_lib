@@ -1,13 +1,10 @@
 import 'dart:async';
 
-import 'package:common_utils/common_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_fast_lib/src/fast_manager.dart';
-import 'package:flutter_fast_lib/src/util/fast_platform_util.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 
 ///WebView加载网页封装
 class FastWebViewPage extends StatefulWidget {
@@ -203,8 +200,9 @@ class _FastWebViewPageState extends State<FastWebViewPage> {
       return;
     }
     _webViewController!.getTitle().then((value) {
-      if (!TextUtil.isEmpty(value)) {
-        _onTitle.value = value!;
+      FastLogUtil.e('title:$value', tag: 'getTitleTag');
+      if (ObjectUtil.isNotEmpty(value) && value!.indexOf('http') != 0) {
+        _onTitle.value = value;
       }
     });
   }

@@ -55,23 +55,26 @@ class BasisViewModel with ChangeNotifier {
 
   /// [e]分类Error和Exception两种
   void setError(e, stack) async {
-    _viewStateError = await FastManager.getInstance().networkMixin.handleError(
-          viewModel: this,
-          e: e,
-          stackTrace: stack,
-        );
+    _viewStateError = await FastManager
+        .getInstance()
+        .networkMixin
+        .handleError(
+      viewModel: this,
+      e: e,
+      stackTrace: stack,
+    );
     viewState = BasisViewState.error;
   }
 
   ///网络请求
   Future<dynamic> doNetwork({
     required Future<dynamic> doRequest,
-    bool loading = true,
+    bool loading = false,
     Function(
-      dynamic e,
-      StackTrace? stackTrace,
-    )?
-        onError,
+        dynamic e,
+        StackTrace? stackTrace,
+        )?
+    onError,
   }) async {
     if (loading) {
       setLoading();

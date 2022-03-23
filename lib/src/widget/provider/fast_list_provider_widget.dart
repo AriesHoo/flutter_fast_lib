@@ -109,6 +109,7 @@ class FastListProviderWidget<A extends FastListViewModel>
                       ///内容适配
                       shrinkWrap: true,
                       scrollDirection: scrollDirection,
+                      ///在列表元素不可见后可以保持元素的状态-空间换时间可设置false
                       addAutomaticKeepAlives: true,
                       physics: const ClampingScrollPhysics(),
                       itemCount: m1.list.length,

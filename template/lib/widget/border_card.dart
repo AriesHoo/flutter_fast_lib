@@ -9,6 +9,8 @@ class BorderCard extends StatelessWidget {
 
   final double? margin;
   final double? marginHighlight;
+  final EdgeInsetsGeometry padding;
+
   final double? elevation;
   final double? elevationHighlight;
   final Color? color;
@@ -24,6 +26,7 @@ class BorderCard extends StatelessWidget {
     this.onLongPress,
     this.margin,
     this.marginHighlight,
+    this.padding = EdgeInsets.zero,
     this.elevation,
     this.elevationHighlight,
     this.color,
@@ -52,27 +55,29 @@ class BorderCard extends StatelessWidget {
           margin: FastPlatformUtil.isMobile && !showBorder
               ? EdgeInsets.zero
               : EdgeInsets.all(
-                  highlightMode.highlight ? marginHighlight ?? 6 : margin ?? 10,
+                  highlightMode.highlight
+                      ? marginHighlight ?? 10
+                      : margin ?? 10,
                 ),
           elevation: highlightMode.highlight ? 0 : 0,
           color: Colors.transparent,
-          borderOnForeground: false,
+          borderOnForeground: true,
           shadowColor: highlightMode.highlight
               ? shadowHighlightColor ?? Colors.deepPurpleAccent
               : shadowColor ?? Theme.of(context).colorScheme.primary,
-          clipBehavior: Clip.antiAlias,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
           shape: FastPlatformUtil.isMobile && !showBorder
               ? null
               : _lineShapeBorder(
                   context,
                   lineWidth: highlightMode.highlight ? 2 : 1,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: borderRadius ?? BorderRadius.circular(8),
                   color: highlightMode.highlight
                       ? Theme.of(context).colorScheme.primary
-                      : Theme.of(context).hintColor.withOpacity(0.11),
+                      : Theme.of(context).hintColor.withOpacity(0.15),
                 ),
           child: Padding(
-            padding: EdgeInsets.all(highlightMode.highlight ? 2 : 1),
+            padding: padding,
             child: builder(context, highlightMode),
           ),
         ),

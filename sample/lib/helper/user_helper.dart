@@ -1,6 +1,5 @@
 import 'package:flutter_fast_lib/flutter_fast_lib.dart';
-import 'package:flutter_fast_lib_template/main.dart';
-import 'package:flutter_fast_lib_template/model/login_back_model.dart';
+import 'package:flutter_blood_belfry/model/login_back_model.dart';
 
 ///用户相关帮助类
 class UserHelper {
@@ -68,9 +67,6 @@ class UserHelper {
   }
 
   static String getAccountName() {
-    if (isVisitor()) {
-      return '游客登录';
-    }
     LoginBackModel? model = getLoginBackModel();
     return model?.accountName ?? '';
   }

@@ -50,11 +50,21 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `flutter_fast_lib_template`
+  /// `血染钟楼`
   String get appName {
     return Intl.message(
-      'flutter_fast_lib_template',
+      '血染钟楼',
       name: 'appName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `首页`
+  String get homePage {
+    return Intl.message(
+      '首页',
+      name: 'homePage',
       desc: '',
       args: [],
     );
@@ -130,10 +140,10 @@ class S {
     );
   }
 
-  /// `网络错误,请检查您的网络或是否禁用特教云使用网络并稍后重试!`
+  /// `网络错误,请检查您的网络或是否禁用血染钟楼使用网络并稍后重试!`
   String get httpErrorMessage {
     return Intl.message(
-      '网络错误,请检查您的网络或是否禁用特教云使用网络并稍后重试!',
+      '网络错误,请检查您的网络或是否禁用血染钟楼使用网络并稍后重试!',
       name: 'httpErrorMessage',
       desc: '',
       args: [],
@@ -265,6 +275,16 @@ class S {
     return Intl.message(
       '下载App',
       name: 'downloadApp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `游戏规则`
+  String get gameRule {
+    return Intl.message(
+      '游戏规则',
+      name: 'gameRule',
       desc: '',
       args: [],
     );

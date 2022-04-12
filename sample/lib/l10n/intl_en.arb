@@ -1,5 +1,6 @@
 {
-  "appName": "flutter_fast_lib_template",
+  "appName": "血染钟楼",
+  "homePage": "首页",
   "login": "登录",
   "viewStateError": "加载失败",
   "viewStateNetworkError": "网络好像不给力哟！",
@@ -7,7 +8,7 @@
   "viewStateRefresh": "刷新一下",
   "viewStateRetry": "重试一下",
   "tokenErrorMessage": "用户信息过期,请重新登录!",
-  "httpErrorMessage": "网络错误,请检查您的网络或是否禁用特教云使用网络并稍后重试!",
+  "httpErrorMessage": "网络错误,请检查您的网络或是否禁用血染钟楼使用网络并稍后重试!",
   "httpServiceErrorMessage": "服务器错误,无法链接云平台!(502 Bad Gateway)",
   "tipCannotInputSpecialStr": "不能输入特殊字符",
   "tipCannotInputEmojiStr": "不能输入表情",
@@ -20,5 +21,6 @@
   "index": "首页",
   "getVerificationCode": "获取验证码",
   "reGetAfter": "秒后重新获取",
-  "downloadApp": "下载App"
+  "downloadApp": "下载App",
+  "gameRule": "游戏规则"
 }

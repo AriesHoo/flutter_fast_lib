@@ -22,8 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "appName":
-            MessageLookupByLibrary.simpleMessage("flutter_fast_lib_template"),
+        "appName": MessageLookupByLibrary.simpleMessage("血染钟楼"),
         "backToIndex": MessageLookupByLibrary.simpleMessage("返回入口"),
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "close": MessageLookupByLibrary.simpleMessage("关闭"),
@@ -31,9 +30,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "dialogTitle": MessageLookupByLibrary.simpleMessage("温馨提示"),
         "downloadApp": MessageLookupByLibrary.simpleMessage("下载App"),
         "ensure": MessageLookupByLibrary.simpleMessage("确定"),
+        "gameRule": MessageLookupByLibrary.simpleMessage("游戏规则"),
         "getVerificationCode": MessageLookupByLibrary.simpleMessage("获取验证码"),
+        "homePage": MessageLookupByLibrary.simpleMessage("首页"),
         "httpErrorMessage": MessageLookupByLibrary.simpleMessage(
-            "网络错误,请检查您的网络或是否禁用特教云使用网络并稍后重试!"),
+            "网络错误,请检查您的网络或是否禁用血染钟楼使用网络并稍后重试!"),
         "httpServiceErrorMessage": MessageLookupByLibrary.simpleMessage(
             "服务器错误,无法链接云平台!(502 Bad Gateway)"),
         "index": MessageLookupByLibrary.simpleMessage("首页"),

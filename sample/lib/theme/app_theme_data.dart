@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fast_lib_template/mixin/fast_lib_mixin.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_blood_belfry/mixin/fast_lib_mixin.dart';
+import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 ///App主题-浅色及深色
@@ -14,8 +16,13 @@ class AppThemeData {
       themeData(lightColorScheme, _lightFocusColor);
   static ThemeData darkThemeData = themeData(darkColorScheme, _darkFocusColor);
 
+  static bool get platformDarkMode =>
+      MediaQuery.of(currentContext).platformBrightness == Brightness.dark;
+
+  static bool get darkMode => platformDarkMode;
+
   static ThemeData themeData(ColorScheme colorScheme, Color focusColor) {
-    return ThemeData(
+    var theme =ThemeData(
       colorScheme: colorScheme,
       brightness: colorScheme.brightness,
       textTheme: _textTheme,
@@ -23,7 +30,7 @@ class AppThemeData {
       // primaryColor: const Color(0xFF030303),
       primaryColor: const Color(0xFF242424),
       appBarTheme: AppBarTheme(
-          backgroundColor: colorScheme.background,
+          backgroundColor: colorScheme.onBackground,
           elevation: 0,
           iconTheme: IconThemeData(color: colorScheme.primary),
           titleSpacing: 10),
@@ -66,6 +73,11 @@ class AppThemeData {
         ),
         indicatorSize: TabBarIndicatorSize.label,
       ),
+    );
+    return theme.copyWith(
+      bottomNavigationBarTheme: theme.bottomNavigationBarTheme.copyWith(
+        backgroundColor: colorScheme.onBackground,
+      )
     );
   }
 
@@ -126,4 +138,51 @@ class AppThemeData {
     /// FormField-错误提示文本样式
     caption: GoogleFonts.oswald(fontWeight: _semiBold, fontSize: 12.0),
   );
+
+  ///设置系统Bar主题
+  static setSystemBarTheme({Color? systemNavigationBarColor}) async {
+
+    ///黑色主题需加一个延迟等待底部bottomAppBarColor切换完成
+    Future.delayed(
+      Duration(
+        milliseconds: darkMode ? 500 : 0,
+      ),
+      () {
+        _setSystemBarTheme(
+          systemNavigationBarColor: systemNavigationBarColor,
+        );
+      },
+    );
+  }
+
+  ///最终执行
+  static _setSystemBarTheme({Color? systemNavigationBarColor}) async {
+    bool statusEnable = FastPlatformUtil.isAndroid
+        ? await FastPlatformUtil.statusColorCanChange()
+        : true;
+    bool navigationEnable = FastPlatformUtil.isAndroid
+        ? await FastPlatformUtil.navigationColorCanChange()
+        : true;
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      ///状态栏背景色
+      statusBarColor: darkMode || statusEnable ? Colors.transparent : null,
+
+      ///状态栏icon 亮度（浅色/深色）
+      statusBarIconBrightness: darkMode ? Brightness.light : Brightness.dark,
+
+      ///导航栏颜色-保持和bottomAppBarColor一致
+      systemNavigationBarColor: systemNavigationBarColor ??
+          (darkMode
+              ? Theme.of(currentContext).bottomAppBarColor
+              : navigationEnable
+                  ? (darkMode ? Colors.transparent : Colors.white)
+                  : null),
+
+      ///导航栏icon（浅色/深色）
+      systemNavigationBarIconBrightness:
+          darkMode ? Brightness.light : Brightness.dark,
+
+      systemNavigationBarContrastEnforced: true,
+    ));
+  }
 }

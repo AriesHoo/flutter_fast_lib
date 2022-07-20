@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 import 'package:flutter_blood_belfry/page/main_page.dart';
+import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 
 ///
 class RouteName {

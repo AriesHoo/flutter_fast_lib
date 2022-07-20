@@ -1,5 +1,5 @@
-import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 import 'package:flutter_blood_belfry/model/login_back_model.dart';
+import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 
 ///用户相关帮助类
 class UserHelper {

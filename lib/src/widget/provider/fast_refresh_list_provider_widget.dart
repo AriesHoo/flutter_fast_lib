@@ -13,6 +13,7 @@ class FastRefreshListProviderWidget<A extends FastRefreshListViewModel>
   FastRefreshListProviderWidget({
     Key? key,
     required A model,
+    bool inScaffold = true,
     bool? footerSafeArea,
     SliverGridDelegate? gridDelegate,
     Axis scrollDirection = Axis.vertical,
@@ -37,6 +38,7 @@ class FastRefreshListProviderWidget<A extends FastRefreshListViewModel>
         super(
           key: key,
           model: model,
+          inScaffold: inScaffold,
           gridDelegate: gridDelegate,
           scrollDirection: scrollDirection,
           itemExtent: itemExtent,

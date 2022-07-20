@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 import 'package:flutter_blood_belfry/main.dart';
 import 'package:flutter_blood_belfry/view_model/count_time_view_model.dart';
 import 'package:flutter_blood_belfry/widget/button.dart';
 import 'package:flutter_blood_belfry/widget/windmill_indicator.dart';
+import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 
 ///倒计时按钮
 class CountTimeButton extends StatelessWidget {

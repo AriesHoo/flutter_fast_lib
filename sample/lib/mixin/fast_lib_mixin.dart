@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart' hide RefreshIndicator;
-import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 import 'package:flutter_blood_belfry/constant/app_constant.dart';
 import 'package:flutter_blood_belfry/data/api_interceptor.dart';
 import 'package:flutter_blood_belfry/data/common_repository.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_blood_belfry/helper/network_helper.dart';
 import 'package:flutter_blood_belfry/main.dart';
 import 'package:flutter_blood_belfry/util/auto_size_util.dart';
 import 'package:flutter_blood_belfry/widget/windmill_indicator.dart';
+import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 
 ///统一配置
 FastLibMixin fastLibMixin = FastLibMixin();

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 import 'package:flutter_blood_belfry/main.dart';
 import 'package:flutter_blood_belfry/util/app_util.dart';
 import 'package:flutter_blood_belfry/util/auto_size_util.dart';
 import 'package:flutter_blood_belfry/widget/app_dialog.dart';
 import 'package:flutter_blood_belfry/widget/button.dart';
+import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 
 ///Dialog 工具类
 class DialogUtil {

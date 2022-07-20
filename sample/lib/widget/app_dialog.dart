@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 import 'package:flutter_blood_belfry/constant/app_constant.dart';
 import 'package:flutter_blood_belfry/util/app_util.dart';
+import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 
 ///通用底部Dialog
 class BottomDialog extends FastDialog {

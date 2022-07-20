@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blood_belfry/constant/app_constant.dart';
 import 'package:flutter_blood_belfry/generated/l10n.dart';
 import 'package:flutter_blood_belfry/helper/analytics_helper.dart';
-import 'package:flutter_fast_lib/flutter_fast_lib.dart';
-import 'package:flutter_blood_belfry/constant/app_constant.dart';
 import 'package:flutter_blood_belfry/manager/route_manager.dart';
 import 'package:flutter_blood_belfry/mixin/fast_lib_mixin.dart';
 import 'package:flutter_blood_belfry/page/main_page.dart';
 import 'package:flutter_blood_belfry/theme/app_theme_data.dart';
+import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 
 ///全局String国际化对象
 S get appString => S.of(currentContext);

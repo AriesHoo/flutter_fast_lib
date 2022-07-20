@@ -1,5 +1,5 @@
-import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 import 'package:flutter_blood_belfry/constant/app_constant.dart';
+import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 
 ///通用 请求
 class CommonRepository {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blood_belfry/main.dart';
 import 'package:flutter_blood_belfry/page/home_page.dart';
 import 'package:flutter_blood_belfry/page/rule_page.dart';
 import 'package:flutter_fast_lib/flutter_fast_lib.dart';
-import 'package:flutter_blood_belfry/main.dart';
 
 
 ///主页面TabPage

@@ -17,6 +17,7 @@ class FastListProviderWidget<A extends FastListViewModel>
   FastListProviderWidget({
     Key? key,
     required A model,
+    bool inScaffold = true,
     SliverGridDelegate? gridDelegate,
     Axis scrollDirection = Axis.vertical,
     double? itemExtent,
@@ -109,6 +110,7 @@ class FastListProviderWidget<A extends FastListViewModel>
                       ///内容适配
                       shrinkWrap: true,
                       scrollDirection: scrollDirection,
+
                       ///在列表元素不可见后可以保持元素的状态-空间换时间可设置false
                       addAutomaticKeepAlives: true,
                       physics: const ClampingScrollPhysics(),
@@ -151,6 +153,15 @@ class FastListProviderWidget<A extends FastListViewModel>
                             : itemWidget;
                       },
                     );
+              Widget _kid = body ??
+                  (childBuilder != null
+
+                      ///将通用列表组件回传回去方便复用--如果需要的话
+                      ? childBuilder(context, m1, _child)
+                      : _child);
+              if (!inScaffold) {
+                return _kid;
+              }
 
               ///页面展示
               return Scaffold(
@@ -159,12 +170,7 @@ class FastListProviderWidget<A extends FastListViewModel>
                 backgroundColor: backgroundColor,
 
                 ///决定最终展示body
-                body: body ??
-                    (childBuilder != null
-
-                        ///将通用列表组件回传回去方便复用--如果需要的话
-                        ? childBuilder(context, m1, _child)
-                        : _child),
+                body: _kid,
                 floatingActionButton: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.end,

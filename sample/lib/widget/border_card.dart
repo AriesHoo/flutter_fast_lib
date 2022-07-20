@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 import 'package:flutter_blood_belfry/view_model/highlight_view_model.dart';
+import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 
 ///长按/悬浮效果Card-包括景深度、margin变化
 class BorderCard extends StatelessWidget {

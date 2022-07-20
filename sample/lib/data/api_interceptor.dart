@@ -1,4 +1,3 @@
-import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 import 'package:flutter_blood_belfry/constant/app_constant.dart';
 import 'package:flutter_blood_belfry/helper/app_helper.dart';
 import 'package:flutter_blood_belfry/helper/user_helper.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_blood_belfry/mixin/fast_lib_mixin.dart';
 import 'package:flutter_blood_belfry/model/base_list_model.dart';
 import 'package:flutter_blood_belfry/model/base_response_model.dart';
 import 'package:flutter_blood_belfry/model/file_upload_model.dart';
+import 'package:flutter_fast_lib/flutter_fast_lib.dart';
 
 ///拦截器--添加统一header及统一数据返回处理
 class ApiInterceptor extends InterceptorsWrapper {

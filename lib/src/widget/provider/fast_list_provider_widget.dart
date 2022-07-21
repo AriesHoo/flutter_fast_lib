@@ -18,6 +18,7 @@ class FastListProviderWidget<A extends FastListViewModel>
     Key? key,
     required A model,
     bool inScaffold = true,
+    Key? scaffoldKey,
     SliverGridDelegate? gridDelegate,
     Axis scrollDirection = Axis.vertical,
     double? itemExtent,
@@ -25,6 +26,8 @@ class FastListProviderWidget<A extends FastListViewModel>
     Color? backgroundColor,
     Function(A)? onModelReady,
     PreferredSizeWidget? Function(BuildContext context, A model)? appBarBuilder,
+    Widget? Function(BuildContext context, A)? drawerBuilder,
+    Widget? Function(BuildContext context, A)? endDrawerBuilder,
     Widget? Function(BuildContext context, A)? floatingActionButtonBuilder,
     Widget? Function(BuildContext context, A)? bottomNavigationBarBuilder,
     Widget Function(BuildContext context, A model, int index)? itemBuilder,
@@ -165,8 +168,10 @@ class FastListProviderWidget<A extends FastListViewModel>
 
               ///页面展示
               return Scaffold(
-                appBar:
-                    appBarBuilder != null ? appBarBuilder(context, m1) : null,
+                key: scaffoldKey,
+                drawer: drawerBuilder?.call(context, m1),
+                endDrawer: endDrawerBuilder?.call(context, m1),
+                appBar: appBarBuilder?.call(context, m1),
                 backgroundColor: backgroundColor,
 
                 ///决定最终展示body

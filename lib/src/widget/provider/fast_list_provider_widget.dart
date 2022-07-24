@@ -171,7 +171,8 @@ class FastListProviderWidget<A extends FastListViewModel>
                 key: scaffoldKey,
                 drawer: drawerBuilder?.call(context, m1),
                 endDrawer: endDrawerBuilder?.call(context, m1),
-                appBar: appBarBuilder?.call(context, m1),
+                appBar:
+                    appBarBuilder != null ? appBarBuilder(context, m1) : null,
                 backgroundColor: backgroundColor,
 
                 ///决定最终展示body

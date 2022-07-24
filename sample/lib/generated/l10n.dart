@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -51,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `血染钟楼`
+  /// `数字警察`
   String get appName {
     return Intl.message(
-      '血染钟楼',
+      '数字警察',
       name: 'appName',
       desc: '',
       args: [],
@@ -141,10 +140,10 @@ class S {
     );
   }
 
-  /// `网络错误,请检查您的网络或是否禁用血染钟楼使用网络并稍后重试!`
+  /// `网络错误,请检查您的网络或是否禁用数字警察使用网络并稍后重试!`
   String get httpErrorMessage {
     return Intl.message(
-      '网络错误,请检查您的网络或是否禁用血染钟楼使用网络并稍后重试!',
+      '网络错误,请检查您的网络或是否禁用数字警察使用网络并稍后重试!',
       name: 'httpErrorMessage',
       desc: '',
       args: [],

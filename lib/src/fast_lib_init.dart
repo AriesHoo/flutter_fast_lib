@@ -68,6 +68,7 @@ class FastLibInit extends StatefulWidget {
     this.mediaQueryData,
     this.textScaleFactor = 1.0,
     this.boldText,
+    this.resizeToAvoidBottomInset,
   })  : routeInformationProvider = null,
         routeInformationParser = null,
         routerDelegate = null,
@@ -141,6 +142,9 @@ class FastLibInit extends StatefulWidget {
   ///是否粗体文字
   final bool? boldText;
 
+  ///Scaffold 用于控制底部有输入框页面是否自动留出位置
+  final bool? resizeToAvoidBottomInset;
+
   @override
   _FastLibInitState createState() => _FastLibInitState();
 }
@@ -206,6 +210,7 @@ class _FastLibInitState extends State<FastLibInit> {
       ///此处需要Scaffold包裹否则报错To introduce a Material widget, you can either directly include one, or use a widget that contains Material itself, such as a Card, Dialog, Drawer, or Scaffold.
       ///https://blog.csdn.net/yechaoa/article/details/90693377
       keyboardBuilder = (context, child) => Scaffold(
+            resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
             body: GestureDetector(
               onTap: () {
                 FocusScopeNode currentFocus = FocusScope.of(context);

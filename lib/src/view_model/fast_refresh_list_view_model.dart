@@ -77,7 +77,7 @@ abstract class FastRefreshListViewModel<T> extends FastListViewModel<T> {
     bool request = true,
   }) {
     ///无数据模拟点击loading
-    if (ObjectUtil.isEmpty(list) || !request) {
+    if (ObjectUtil.isEmpty(list) || !request || !enablePullDown) {
       initData();
     } else {
       refreshController.requestRefresh();

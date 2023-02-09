@@ -14,6 +14,11 @@ import android.content.Intent;
 import android.content.Context;
 import android.app.Activity;
 
+import java.lang.reflect.Method;
+import me.aries.flutter_fast_lib.flutter_fast_lib.NavigationBarUtil;
+import me.aries.flutter_fast_lib.flutter_fast_lib.StatusBarUtil;
+import me.aries.flutter_fast_lib.flutter_fast_lib.DeviceIdUtil;
+
 /**
  * FlutterFastLibPlugin
  */
@@ -55,6 +60,8 @@ public class FlutterFastLibPlugin implements FlutterPlugin, MethodCallHandler, A
             result.success(NavigationBarUtil.setNavigationBarLightMode(mActivity));
         } else if (call.method.equals("setNavigationBarDarkMode")) {//设置导航栏暗色-白色字体
             result.success(NavigationBarUtil.setNavigationBarDarkMode(mActivity));
+        } else if (call.method.equals("getDeviceId")) {//获取序列号
+            result.success(DeviceIdUtil.getDeviceId(mContext,(String) call.argument("prefix")));
         } else {
             result.notImplemented();
         }
@@ -83,5 +90,17 @@ public class FlutterFastLibPlugin implements FlutterPlugin, MethodCallHandler, A
     @Override
     public void onDetachedFromActivity() {
 
+    }
+
+    public static String getSerialNumber() {
+        String serial = "";
+        try {
+            Class<?> c = Class.forName("android.os.SystemProperties");
+            Method get = c.getMethod("get", String.class);
+            serial = (String) get.invoke(c, "ro.serialno");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return serial;
     }
 }

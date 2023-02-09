@@ -1,5 +1,5 @@
 {
-  "appName": "数字警察",
+  "appName": "评估量表",
   "homePage": "首页",
   "login": "登录",
   "viewStateError": "加载失败",
@@ -8,7 +8,7 @@
   "viewStateRefresh": "刷新一下",
   "viewStateRetry": "重试一下",
   "tokenErrorMessage": "用户信息过期,请重新登录!",
-  "httpErrorMessage": "网络错误,请检查您的网络或是否禁用数字警察使用网络并稍后重试!",
+  "httpErrorMessage": "网络错误,请检查您的网络或是否禁用评估量表使用网络并稍后重试!",
   "httpServiceErrorMessage": "服务器错误,无法链接云平台!(502 Bad Gateway)",
   "tipCannotInputSpecialStr": "不能输入特殊字符",
   "tipCannotInputEmojiStr": "不能输入表情",

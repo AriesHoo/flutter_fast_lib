@@ -28,7 +28,7 @@ class AppConstant {
 
   ///生产环境参数
   static final Map<String, dynamic> _paramsProduction = {
-    'appTitle': '数字警察',
+    'appTitle': '评估量表',
     'jPushKey': 'xxxx',
     'jPushChannel': 'BloodBelfry',
     'shareSubtitle': 'flutter_fast_lib_template_web',
@@ -39,7 +39,7 @@ class AppConstant {
 
   ///测试环境参数
   static final Map<String, dynamic> _paramsTest = {
-    'appTitle': '数字警察Test',
+    'appTitle': '评估量表Test',
     'jPushKey': 'xxxx',
     'jPushChannel': 'BloodBelfryTest',
     'shareSubtitle': 'flutter_fast_lib_template_web',

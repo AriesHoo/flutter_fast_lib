@@ -61,4 +61,17 @@ class FastMethodChannelUtil {
     }
     return await _channel.invokeMethod('setNavigationBarDarkMode');
   }
+
+  ///获取序列号
+  static Future<String> getDeviceId({
+    String prefix = '',
+  }) async {
+    if (!FastPlatformUtil.isAndroid) {
+      return '';
+    }
+    final params = <String, dynamic>{
+      'prefix': prefix,
+    };
+    return await _channel.invokeMethod('getDeviceId', params);
+  }
 }

@@ -59,7 +59,7 @@ android {
 //        applicationId "com.blood.belfry"
         //正式环境Manifest配置参数
 //        manifestPlaceholders = [
-//                APP_NAME     : "数字警察",//应用名称
+//                APP_NAME     : "评估量表",//应用名称
 //                JPUSH_PKGNAME: applicationId,
 //                JPUSH_APPKEY : "xxxx", // NOTE: JPush 上注册的包名对应的 Appkey.
 //                JPUSH_CHANNEL: "BloodBelfry", //暂时填写默认值即可.
@@ -68,7 +68,7 @@ android {
         applicationId "com.blood.belfry.test"
         //测试环境Manifest配置参数
         manifestPlaceholders = [
-                APP_NAME     : "数字警察Test",//应用名称
+                APP_NAME     : "评估量表Test",//应用名称
                 JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "xxxxx", // NOTE: JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL: "BloodBelfryTest", //暂时填写默认值即可.

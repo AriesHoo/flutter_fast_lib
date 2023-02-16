@@ -22,9 +22,9 @@ class ApiInterceptor extends InterceptorsWrapper {
             ? 'pc'
             : FastPlatformUtil.operatingSystem.toLowerCase());
     headers.putIfAbsent('User-Agent', () => 'Mozilla/5.0 (Android)');
-    if (UserHelper.isLogin()) {
+    if (UserHelper.isLogin) {
       ///token
-      headers.putIfAbsent('X-Token', () => UserHelper.getToken());
+      headers.putIfAbsent('X-Token', () => UserHelper.token);
       var versionCode = await FastPlatformUtil.getBuildNumber();
       var versionName = await FastPlatformUtil.getVersion();
 

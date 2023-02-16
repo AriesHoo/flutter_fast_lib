@@ -14,6 +14,7 @@ class FastRefreshListProviderWidget<A extends FastRefreshListViewModel>
     Key? key,
     required A model,
     bool inScaffold = true,
+    bool? resizeToAvoidBottomInset,
     Key? scaffoldKey,
     bool? footerSafeArea,
     SliverGridDelegate? gridDelegate,
@@ -36,70 +37,75 @@ class FastRefreshListProviderWidget<A extends FastRefreshListViewModel>
     Widget Function(BuildContext context, A model)? errorBuilder,
     Widget? Function(BuildContext context, A moder)? scrollBuilder,
     bool Function(BuildContext context, A model, int index)? safeItemBottom,
-  })  : assert(itemBuilder != null || childBuilder != null,
-            'You should specify either a itemBuilder or a childBuilder'),
+  })
+      : assert(itemBuilder != null || childBuilder != null,
+  'You should specify either a itemBuilder or a childBuilder'),
         super(
-          key: key,
-          model: model,
-          inScaffold: inScaffold,
-          scaffoldKey: scaffoldKey,
-          gridDelegate: gridDelegate,
-          scrollDirection: scrollDirection,
-          itemExtent: itemExtent,
-          cacheExtent: cacheExtent,
-          backgroundColor: backgroundColor,
-          onModelReady: (model) {
-            ///回调前处理滚动底部刷新逻辑
-            FastManager.getInstance()
-                .refreshListMixin
-                .onBeforeModelReady(model);
-            onModelReady?.call(model);
-          },
-          appBarBuilder: appBarBuilder,
-          drawerBuilder: drawerBuilder,
-          endDrawerBuilder: endDrawerBuilder,
-          floatingActionButtonBuilder: floatingActionButtonBuilder,
-          bottomNavigationBarBuilder: bottomNavigationBarBuilder,
-          loadingBuilder: loadingBuilder,
-          emptyBuilder: emptyBuilder,
-          errorBuilder: errorBuilder,
-          scrollBuilder: scrollBuilder,
-          safeItemBottom: safeItemBottom,
-          itemBuilder: itemBuilder,
-          childBuilder: (context, m1, child) {
-            return SmartRefresher(
-                enablePullDown: m1.enablePullDown,
-                enablePullUp: m1.enablePullUp,
-                header: headerBuilder != null
-                    ? headerBuilder(context)
-                    : FastManager.getInstance()
-                        .refreshListMixin
-                        .headerBuilder(context),
-                footer: footerBuilder != null
-                    ? footerBuilder(m1.refreshController)
-                    : FastManager.getInstance()
-                        .refreshListMixin
-                        .footerBuilder(m1.refreshController, footerSafeArea),
+        key: key,
+        model: model,
+        inScaffold: inScaffold,
+        resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+        scaffoldKey: scaffoldKey,
+        gridDelegate: gridDelegate,
+        scrollDirection: scrollDirection,
+        itemExtent: itemExtent,
+        cacheExtent: cacheExtent,
+        backgroundColor: backgroundColor,
+        onModelReady: (model) {
+          ///回调前处理滚动底部刷新逻辑
+          FastManager
+              .getInstance()
+              .refreshListMixin
+              .onBeforeModelReady(model);
+          onModelReady?.call(model);
+        },
+        appBarBuilder: appBarBuilder,
+        drawerBuilder: drawerBuilder,
+        endDrawerBuilder: endDrawerBuilder,
+        floatingActionButtonBuilder: floatingActionButtonBuilder,
+        bottomNavigationBarBuilder: bottomNavigationBarBuilder,
+        loadingBuilder: loadingBuilder,
+        emptyBuilder: emptyBuilder,
+        errorBuilder: errorBuilder,
+        scrollBuilder: scrollBuilder,
+        safeItemBottom: safeItemBottom,
+        itemBuilder: itemBuilder,
+        childBuilder: (context, m1, child) {
+          return SmartRefresher(
+              enablePullDown: m1.enablePullDown,
+              enablePullUp: m1.enablePullUp,
+              header: headerBuilder != null
+                  ? headerBuilder(context)
+                  : FastManager
+                  .getInstance()
+                  .refreshListMixin
+                  .headerBuilder(context),
+              footer: footerBuilder != null
+                  ? footerBuilder(m1.refreshController)
+                  : FastManager
+                  .getInstance()
+                  .refreshListMixin
+                  .footerBuilder(m1.refreshController, footerSafeArea),
 
-                ///下拉刷新监听
-                onRefresh: m1.refresh,
+              ///下拉刷新监听
+              onRefresh: m1.refresh,
 
-                ///上拉加载更多监听
-                onLoading: m1.loadMore,
+              ///上拉加载更多监听
+              onLoading: m1.loadMore,
 
-                ///刷新控制器
-                controller: m1.refreshController,
-                scrollController: m1.scrollTopController.scrollController,
-                primary: false,
+              ///刷新控制器
+              controller: m1.refreshController,
+              // scrollController: m1.scrollTopController.scrollController,
+              primary: false,
 
-                ///子控件ListView
-                child: childBuilder != null
+              ///子控件ListView
+              child: childBuilder != null
 
-                    ///如果还需要再自定义
-                    ? childBuilder(context, m1, child)
+              ///如果还需要再自定义
+                  ? childBuilder(context, m1, child)
 
-                    ///不需要自定义则使用上层child--ListView/GridView
-                    : child);
-          },
-        );
+              ///不需要自定义则使用上层child--ListView/GridView
+                  : child);
+        },
+      );
 }

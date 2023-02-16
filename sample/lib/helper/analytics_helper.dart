@@ -131,16 +131,16 @@ class AnalyticsHelper {
 
   ///登记账户信息
   Future<Map<dynamic, dynamic>>? identifyAccount() {
-    if (upload && UserHelper.isLogin()) {
+    if (upload && UserHelper.isLogin) {
       return _analytics
           .identifyAccount(
-        '${UserHelper.getUserId()}',
-        name: UserHelper.getAccountName(),
-        sex: UserHelper.isFemale() ? 2 : 1,
+        '${UserHelper.userId}',
+        name: UserHelper.accountName,
+        sex: UserHelper.female ? 2 : 1,
         // extMap: _addAnalyticsExtMap(
         //   extMap: {
-        //     'institutionName': UserHelper.getInstitutionName(),
-        //     'isViewByOthers': '${UserHelper.getSearchByOthers()}',
+        //     'institutionName': UserHelper.institutionName,
+        //     'isViewByOthers': '${UserHelper.searchByOthers}',
         //     'passwordCheck': '${UserHelper.passwordCheck()}'
         //   },
         // ),
@@ -169,7 +169,7 @@ class AnalyticsHelper {
     int? errorCode,
     Map<String, String>? extMap,
   }) {
-    if (TextUtil.isEmpty(error) || !UserHelper.isLogin() || !upload) {
+    if (TextUtil.isEmpty(error) || !UserHelper.isLogin || !upload) {
       return _instance;
     }
     extMap = _addAnalyticsExtMap(extMap: extMap);
@@ -195,7 +195,7 @@ class AnalyticsHelper {
     int? browseDuration,
     Map<String, String>? extMap,
   }) {
-    if (!UserHelper.isLogin() || !upload) {
+    if (!UserHelper.isLogin || !upload) {
       return _instance;
     }
     extMap = _addAnalyticsExtMap(extMap: extMap);
@@ -285,16 +285,16 @@ class AnalyticsHelper {
     extMap = extMap ?? {};
 
     ///登录过
-    // if (userInfo && UserHelper.isLogin()) {
+    // if (userInfo && UserHelper.isLogin) {
     //   if (!extMap.containsKey('userId')) {
-    //     extMap.putIfAbsent('userId', () => '${UserHelper.getUserId()}');
+    //     extMap.putIfAbsent('userId', () => '${UserHelper.userId}');
     //   }
     //   if (!extMap.containsKey('userName')) {
-    //     extMap.putIfAbsent('userName', () => UserHelper.getAccountName());
+    //     extMap.putIfAbsent('userName', () => UserHelper.accountName);
     //   }
     //   if (!extMap.containsKey('institutionName')) {
     //     extMap.putIfAbsent(
-    //         'institutionName', () => UserHelper.getInstitutionName());
+    //         'institutionName', () => UserHelper.institutionName);
     //   }
     // }
 

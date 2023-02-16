@@ -239,6 +239,7 @@ class _FastTabBarState extends State<FastTabBar>
           ? Container(
         height: showTab ? _tabSize.height : 0.0,
         width: _tabSize.width,
+        
         child: _tabBar,
         color: widget.tabDecoration == null
             ? (widget.tabColor ??

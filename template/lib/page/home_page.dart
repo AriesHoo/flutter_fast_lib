@@ -61,13 +61,13 @@ class TabHome extends FastTabBar {
           mainAxisSize: MainAxisSize.min,
           children: [
             ///登录(已登录用户头像)
-            UserHelper.isLogin()
+            UserHelper.isLogin
                 ? Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: getSpaceMedium(),
                     ),
                     child: NetworkImageLoader(
-                      url: UserHelper.getImageUrl(),
+                      url: UserHelper.imageUrl,
                       width: 40,
                       height: 40,
                       borderRadius: BorderRadius.circular(getSpaceMedium()),

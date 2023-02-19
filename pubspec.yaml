@@ -19,7 +19,7 @@ dependencies:
   #  日志打印
   logger: '>=1.0.0 <2.0.0'
   #  网络请求相关dio
-  dio: '>=4.0.0'
+  dio: '>=4.0.0 <5.0.0'
   #  下拉刷新
   pull_to_refresh: '>=2.0.0 <3.0.0'
   synchronized: '>=3.0.0 <4.0.0'

@@ -1,11 +1,9 @@
 import 'dart:io';
 
-import 'package:collection/collection.dart' show IterableExtension;
-import 'package:flutter/foundation.dart';
-import 'package:archive/archive.dart';
 import 'package:archive/archive_io.dart';
-import 'package:xml/xml.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:path/path.dart' as path;
+import 'package:xml/xml.dart';
 
 import 'docx_constants.dart';
 import 'models/tpl_response.dart';
@@ -15,7 +13,13 @@ import 'tpl_utils.dart';
 /// main [DocxTpl] class
 class DocxTpl {
   /// .docx file path, can be file path or url to the .docx file
-  final  String? docxTemplate;
+  final String? docxTemplate;
+
+  ///替代符起始
+  final String replaceStart;
+
+  ///替代符结束
+  final String replaceEnd;
 
   /// indicate whether [docxTemplate] is a remote url file path or a local file
   final bool isRemoteFile;
@@ -46,8 +50,10 @@ class DocxTpl {
 
   DocxTpl({
     this.docxTemplate,
-    this.isAssetFile: false,
-    this.isRemoteFile: false,
+    this.isAssetFile = false,
+    this.isRemoteFile = false,
+    this.replaceStart = '{{',
+    this.replaceEnd = '}}',
   }) {
     // get temp dir and save it once
     _dir = tempDir();
@@ -133,12 +139,13 @@ class DocxTpl {
 
         // only change proper templated fields  {{..}} and leave the rest as is
         if (elText.contains(RegExp(
-          '{{\\w*}}',
+          '$replaceStart\\w*$replaceEnd',
           caseSensitive: true,
           multiLine: true,
         ))) {
           // replace field with data passed by user
-          var rep = elText.replaceAll(RegExp('{{$field}}'), data[field]);
+          var rep = elText.replaceAll(
+              RegExp('$replaceStart$field$replaceEnd'), data[field]);
           element.innerText = rep;
         }
       }
@@ -284,7 +291,11 @@ class DocxTpl {
             // loop through the _instrTextChildren
             for (var instrChild in _instrTextChildren) {
               // extract merge-field
-              var chunkResult = templateParse(instrChild.text);
+              var chunkResult = templateParse(
+                text: instrChild.text,
+                replaceStart: replaceStart,
+                replaceEnd: replaceEnd,
+              );
 
               /// add merge fields to list
               mergedFields..addAll(chunkResult);

@@ -5,8 +5,8 @@
 // @dart = 2.9
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:share/share.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:share/share.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();

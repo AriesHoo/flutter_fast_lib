@@ -165,6 +165,16 @@ class _FastLibInitState extends State<FastLibInit> {
   }
 
   @override
+  void didUpdateWidget(covariant FastLibInit oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    FastLogUtil.e(
+      'oldTheme:${oldWidget.theme?.colorScheme.primary};newTheme:${oldWidget.theme?.colorScheme.primary}',
+      tag: 'FastInitTag',
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     FastLogUtil.e('build_context:$context;currentContext:$currentContext',
         tag: 'FastLibInitTag');

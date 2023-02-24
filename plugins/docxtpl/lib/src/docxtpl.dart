@@ -91,7 +91,8 @@ class DocxTpl {
 
   /// write all changes and save, returns String path to file
   Future<String> save(String filepath) async {
-    File(filepath)..createSync(recursive: true);
+    File(filepath)
+      ..createSync(recursive: true);
 
     var zipF = ZipFileEncoder();
 
@@ -145,7 +146,7 @@ class DocxTpl {
         ))) {
           // replace field with data passed by user
           var rep = elText.replaceAll(
-              RegExp('$replaceStart$field$replaceEnd'), data[field]);
+              RegExp('$replaceStart$field$replaceEnd'), data[field] ?? '');
           element.innerText = rep;
         }
       }
@@ -229,7 +230,7 @@ class DocxTpl {
 
       // ignore: omit_local_variable_types
       ArchiveFile? zippedFile = _zip.files.firstWhereOrNull(
-        (zippedElement) => zippedElement.name == '[Content_Types].xml',
+            (zippedElement) => zippedElement.name == '[Content_Types].xml',
       );
 
       if (zippedFile == null) {

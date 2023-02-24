@@ -5,6 +5,7 @@ import 'package:flutter_fast_lib_example/generated/l10n.dart';
 import 'package:flutter_fast_lib_example/main_tab_page.dart';
 import 'package:flutter_fast_lib_example/manager/router_manger.dart';
 import 'package:flutter_fast_lib_example/mixin/fast_lib_mixin.dart';
+import 'package:flutter_fast_lib_example/theme/app_theme_data.dart';
 
 ///全局获取国际化语言
 S get appString => S.of(currentContext);
@@ -43,12 +44,13 @@ class _MyAppState extends State<MyApp> {
 
       ///是否异步初始化[FastSpUtil]如果想同步执行则自己在main方法调用FastSpUtil.initialize
       initializeSp: true,
-      themeColor: Colors.purple,
-
+      themeColor: Colors.green,
       ///主题颜色
       onGenerateTheme: (themeData) {
         return themeData;
       },
+      theme: AppThemeData.lightThemeData,
+      darkTheme: AppThemeData.darkThemeData,
       home: const MainTabPage(),
       localizationsDelegates: const [
         S.delegate,

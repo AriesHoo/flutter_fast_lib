@@ -16,12 +16,12 @@ class QQTitleBarPage extends StatelessWidget {
         systemOverlayStyle: SystemUiOverlayStyle.light,
         titleTextStyle: Theme.of(context)
             .appBarTheme
-            .titleTextStyle!
-            .copyWith(color: Colors.white),
+            .titleTextStyle
+            ?.copyWith(color: Colors.white),
         iconTheme: Theme.of(context)
             .appBarTheme
-            .iconTheme!
-            .copyWith(color: Colors.white),
+            .iconTheme
+            ?.copyWith(color: Colors.white),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             color: Colors.purpleAccent,

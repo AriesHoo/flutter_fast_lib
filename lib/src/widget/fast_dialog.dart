@@ -131,23 +131,43 @@ class FastDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DialogTheme dialogTheme = DialogTheme.of(context);
-    final EdgeInsets effectivePadding = MediaQuery.of(context).viewInsets +
+    final EdgeInsets effectivePadding = MediaQuery
+        .of(context)
+        .viewInsets +
         (insetPadding ??
-            FastManager.getInstance().dialogMixin.defaultInsetPadding);
+            FastManager
+                .getInstance()
+                .dialogMixin
+                .defaultInsetPadding);
     bool _scrollable =
-        scrollable ?? FastManager.getInstance().dialogMixin.scrollable;
+        scrollable ?? FastManager
+            .getInstance()
+            .dialogMixin
+            .scrollable;
     double maxBoxWidth =
-        maxWidth ?? FastManager.getInstance().dialogMixin.maxWidth;
+        maxWidth ?? FastManager
+            .getInstance()
+            .dialogMixin
+            .maxWidth;
     double minBoxWidth =
-        minWidth ?? FastManager.getInstance().dialogMixin.minWidth;
+        minWidth ?? FastManager
+            .getInstance()
+            .dialogMixin
+            .minWidth;
 
     double maxBoxHeight =
-        maxHeight ?? FastManager.getInstance().dialogMixin.maxHeight;
+        maxHeight ?? FastManager
+            .getInstance()
+            .dialogMixin
+            .maxHeight;
 
     ///添加内边距
     Widget _child = Padding(
       padding: contentPadding ??
-          FastManager.getInstance().dialogMixin.defaultContentPadding ??
+          FastManager
+              .getInstance()
+              .dialogMixin
+              .defaultContentPadding ??
           EdgeInsets.zero,
       child: child,
     );
@@ -162,18 +182,27 @@ class FastDialog extends StatelessWidget {
 
     ///是否显示可关闭按钮
     bool _closable =
-        closable ?? FastManager.getInstance().dialogMixin.closable ?? kIsWeb;
+        closable ?? FastManager
+            .getInstance()
+            .dialogMixin
+            .closable ?? kIsWeb;
 
     ///添加CloseButton
     if (_closable) {
       _child = Stack(
         alignment: closeAlignment ??
-            FastManager.getInstance().dialogMixin.closeAlignment ??
+            FastManager
+                .getInstance()
+                .dialogMixin
+                .closeAlignment ??
             AlignmentDirectional.topEnd,
         children: [
           _child,
           closeButton ??
-              FastManager.getInstance().dialogMixin.closeButton ??
+              FastManager
+                  .getInstance()
+                  .dialogMixin
+                  .closeButton ??
               const CloseButton(),
         ],
       );
@@ -195,17 +224,31 @@ class FastDialog extends StatelessWidget {
           child: Material(
             color: backgroundColor ??
                 dialogTheme.backgroundColor ??
-                Theme.of(context).dialogBackgroundColor,
+                Theme
+                    .of(context)
+                    .dialogBackgroundColor,
             elevation: elevation ??
                 dialogTheme.elevation ??
-                FastManager.getInstance().dialogMixin.defaultElevation,
+                FastManager
+                    .getInstance()
+                    .dialogMixin
+                    .defaultElevation,
             shape: shape ??
                 dialogTheme.shape ??
-                FastManager.getInstance().dialogMixin.defaultDialogShape,
-            shadowColor: FastManager.getInstance().dialogMixin.shadowColor,
+                FastManager
+                    .getInstance()
+                    .dialogMixin
+                    .defaultDialogShape,
+            shadowColor: FastManager
+                .getInstance()
+                .dialogMixin
+                .shadowColor,
             type: MaterialType.card,
             clipBehavior: clipBehavior ??
-                FastManager.getInstance().dialogMixin.clipBehavior,
+                FastManager
+                    .getInstance()
+                    .dialogMixin
+                    .clipBehavior,
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 minWidth: minBoxWidth,
@@ -213,7 +256,8 @@ class FastDialog extends StatelessWidget {
                 maxHeight: maxBoxHeight,
               ),
               child: GestureDetector(
-                onTap: () => {
+                onTap: () =>
+                {
                   ///点击child部分不做关闭操作
                 },
                 child: _child,

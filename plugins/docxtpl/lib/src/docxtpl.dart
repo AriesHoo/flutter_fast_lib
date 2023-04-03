@@ -44,9 +44,9 @@ class DocxTpl {
   /// hold merge fields extracted from the document
   List<String> mergedFields = [];
 
-  var _settings;
-
-  var _settingsInfo;
+  // var _settings;
+  //
+  // var _settingsInfo;
 
   DocxTpl({
     this.docxTemplate,
@@ -265,16 +265,18 @@ class DocxTpl {
           for (var contentTypePart in CONTENT_TYPES_PARTS) {
             if (type == contentTypePart) {
               // checking
-              var chunkResp = await __getTreeOfFile(file);
-              _parts[chunkResp.first] = chunkResp.last;
+              // var chunkResp =
+              await __getTreeOfFile(file);
+              // _parts[chunkResp.first] = chunkResp.last;
             }
           }
 
           // check in another
           if (type == CONTENT_TYPE_SETTINGS) {
-            var chunkResp = await __getTreeOfFile(file);
-            _settingsInfo = chunkResp.first;
-            _settings = chunkResp.last;
+            // var chunkResp =
+            await __getTreeOfFile(file);
+            // _settingsInfo = chunkResp.first;
+            // _settings = chunkResp.last;
           }
 
           for (var part in _parts.values) {

@@ -22,7 +22,6 @@ class Share {
     if (!Platform.isAndroid && !Platform.isIOS) {
       return Future.value(false);
     }
-    assert(packageOrScheme != null);
     assert(packageOrScheme.isNotEmpty);
     final Map<String, dynamic> params = <String, dynamic>{
       'packageOrScheme': packageOrScheme,
@@ -54,7 +53,6 @@ class Share {
     String? activityName,
     Rect? sharePositionOrigin,
   }) {
-    assert(text != null);
     assert(text.isNotEmpty);
     final Map<String, dynamic> params = <String, dynamic>{
       'text': text,
@@ -95,9 +93,8 @@ class Share {
     String? activityName,
     Rect? sharePositionOrigin,
   }) {
-    assert(paths != null);
     assert(paths.isNotEmpty);
-    assert(paths.every((element) => element != null && element.isNotEmpty));
+    assert(paths.every((element) => element.isNotEmpty));
     final Map<String, dynamic> params = <String, dynamic>{
       'paths': paths,
       'mimeTypes': mimeTypes ??
@@ -120,7 +117,6 @@ class Share {
   }
 
   static String _mimeTypeForPath(String path) {
-    assert(path != null);
     return lookupMimeType(path) ?? 'application/octet-stream';
   }
 }

@@ -335,7 +335,6 @@ class _FastLibInitState extends State<FastLibInit> {
       // platform: TargetPlatform.windows,
       ///主题浅色或深色-
       brightness: brightness,
-      primaryColorBrightness: brightness,
 
       ///强调色
       primaryColor: themeColor,

@@ -11,10 +11,12 @@ import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -69,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // android only
     final directory = await getExternalStorageDirectory();
 
-    String? path = await FilesystemPicker.open(
+    await FilesystemPicker.open(
       title: 'Select .docx template',
       context: context,
       rootDirectory: directory!,
@@ -91,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
       await OpenFile.open(savedFile);
     } catch (e) {
       // error
-      print('[ERROR] Failed to open file: $savedFile');
+      print.call('[ERROR] Failed to open file: $savedFile');
     }
   }
 
@@ -110,19 +112,19 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     var r = await docxTpl.parseDocxTpl();
-    print(r.mergeStatus);
-    print(r.message);
+    print.call(r.mergeStatus);
+    print.call(r.message);
 
     var fields = docxTpl.getMergeFields();
 
-    print('[INFO] local template file fields found: ');
-    print(fields);
+    print.call('[INFO] local template file fields found: ');
+    print.call(fields);
 
     await docxTpl.writeMergeFields(data: templateData);
 
     var savedLocal = await docxTpl.save(saveTo.path);
 
-    print('[INFO] Generated document [local] saved to: $savedLocal');
+    print.call('[INFO] Generated document [local] saved to: $savedLocal');
 
     setState(() {
       mergeFields = fields;
@@ -147,19 +149,19 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     var r = await docxTpl.parseDocxTpl();
-    print(r.mergeStatus == MergeResponseStatus.Success);
-    print(r.message);
+    print.call(r.mergeStatus == MergeResponseStatus.Success);
+    print.call(r.message);
 
     var fields = docxTpl.getMergeFields();
 
-    print('[INFO] asset template file fields found: ');
-    print(fields);
+    print.call('[INFO] asset template file fields found: ');
+    print.call(fields);
 
     await docxTpl.writeMergeFields(data: templateData);
 
     var savedAsset = await docxTpl.save(saveTo.path);
 
-    print('[INFO] Generated document [asset] saved to: $savedAsset');
+    print.call('[INFO] Generated document [asset] saved to: $savedAsset');
 
     setState(() {
       mergeFields = fields;
@@ -184,19 +186,19 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     var r = await docxTpl.parseDocxTpl();
-    print(r.mergeStatus);
-    print(r.message);
+    print.call(r.mergeStatus);
+    print.call(r.message);
 
     var fields = docxTpl.getMergeFields();
 
-    print('[INFO] remote template file fields found: ');
-    print(fields);
+    print.call('[INFO] remote template file fields found: ');
+    print.call(fields);
 
     await docxTpl.writeMergeFields(data: templateData);
 
     var savedRemote = await docxTpl.save(saveTo.path);
 
-    print('[INFO] Generated document [remote] saved to: $savedRemote');
+    print.call('[INFO] Generated document [remote] saved to: $savedRemote');
 
     setState(() {
       mergeFields = fields;

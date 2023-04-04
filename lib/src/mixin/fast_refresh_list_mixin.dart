@@ -83,7 +83,7 @@ mixin FastRefreshListMixin {
   Widget footerIdleBuilder(BuildContext context) {
     return Text(
       loadStatusIdle,
-      style: Theme.of(context).textTheme.caption,
+      style: Theme.of(context).textTheme.bodySmall,
     );
   }
 
@@ -91,7 +91,7 @@ mixin FastRefreshListMixin {
   Widget footerCanLoadingBuilder(BuildContext context) {
     return Text(
       loadStatusCanLoading,
-      style: Theme.of(context).textTheme.caption,
+      style: Theme.of(context).textTheme.bodySmall,
     );
   }
 
@@ -104,7 +104,7 @@ mixin FastRefreshListMixin {
   Widget footerNoMoreBuilder(BuildContext context) {
     return Text(
       loadStatusNoMore,
-      style: Theme.of(context).textTheme.caption,
+      style: Theme.of(context).textTheme.bodySmall,
     );
   }
 
@@ -112,7 +112,7 @@ mixin FastRefreshListMixin {
   Widget footerFailedBuilder(BuildContext context) {
     return Text(
       loadStatusFailed,
-      style: Theme.of(context).textTheme.caption,
+      style: Theme.of(context).textTheme.bodySmall,
     );
   }
 

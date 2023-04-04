@@ -77,7 +77,7 @@ class UserAgreement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var textColor = Theme.of(context).textTheme.headline6!.color!;
+    var textColor = Theme.of(context).textTheme.titleLarge?.color;
     return RichText(
       text: TextSpan(
         style: TextStyle(
@@ -91,7 +91,7 @@ class UserAgreement extends StatelessWidget {
         children: [
           TextSpan(
             style: TextStyle(
-              color: textColor.withOpacity(0.7),
+              color: textColor?.withOpacity(0.7),
               fontSize: 12,
             ),
             text: '\n\n更多详情，敬请查阅',
@@ -109,7 +109,7 @@ class UserAgreement extends StatelessWidget {
           ),
           TextSpan(
             style: TextStyle(
-              color: textColor.withOpacity(0.7),
+              color: textColor?.withOpacity(0.7),
               fontSize: 12,
             ),
             text: '全文。我们承诺:将以业界领先的信息安全保护水平，全力保护您的信息安全!',

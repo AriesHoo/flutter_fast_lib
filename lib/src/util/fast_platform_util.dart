@@ -96,9 +96,10 @@ class FastPlatformUtil {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       return await deviceInfo.androidInfo
-          .then((value) => value.isPhysicalDevice ?? false);
+          .then((value) => true == value.isPhysicalDevice);
     } else if (Platform.isIOS) {
-      return await deviceInfo.iosInfo.then((value) => value.isPhysicalDevice);
+      return await deviceInfo.iosInfo
+          .then((value) => true == value.isPhysicalDevice);
     } else {
       return false;
     }
@@ -108,7 +109,7 @@ class FastPlatformUtil {
   static Future<String> getBrand() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
-      return await deviceInfo.androidInfo.then((value) => value.brand ?? '');
+      return await deviceInfo.androidInfo.then((value) => '${value.brand}');
     } else if (Platform.isIOS) {
       ///iPhone/iPad
       return await deviceInfo.iosInfo
@@ -126,7 +127,7 @@ class FastPlatformUtil {
   static Future<String> getModel() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (isAndroid) {
-      return await deviceInfo.androidInfo.then((value) => value.model ?? '');
+      return await deviceInfo.androidInfo.then((value) => '${value.model}');
     } else if (isIOS) {
       return await deviceInfo.iosInfo
           .then((value) => value.utsname.machine ?? '');
@@ -145,7 +146,7 @@ class FastPlatformUtil {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (isAndroid) {
       return await deviceInfo.androidInfo
-          .then((value) => value.version.release ?? '');
+          .then((value) =>  '${value.version.release}');
     } else if (isIOS) {
       return await deviceInfo.iosInfo
           .then((value) => value.systemVersion ?? '');

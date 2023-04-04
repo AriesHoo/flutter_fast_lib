@@ -66,7 +66,7 @@ class _AppInitState extends State<AppInit> with WidgetsBindingObserver {
     super.initState();
 
     ///添加监听用于监控前后台转换
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override

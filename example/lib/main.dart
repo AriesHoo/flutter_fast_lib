@@ -14,7 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   ///滚动性能优化 1.22.0
-  GestureBinding.instance!.resamplingEnabled = true;
+  GestureBinding.instance.resamplingEnabled = true;
   // 同步初始化FastSpUtil
   await FastSpUtil.initialize();
   runApp(

@@ -11,9 +11,6 @@ class ArticleViewModel extends FastRefreshListViewModel<ArticleItemModel> {
   ArticleViewModel({required this.url});
 
   @override
-  BasisScrollTopController get scrollTopController => super.scrollTopController;
-
-  @override
   Future<List<ArticleItemModel>> loadData({int pageNum = 0}) async {
     ///第一页将游标重置
     lastCursor =

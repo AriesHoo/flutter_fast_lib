@@ -338,8 +338,6 @@ class _FastLibInitState extends State<FastLibInit> {
 
       ///强调色
       primaryColor: themeColor,
-      errorColor: Colors.red,
-      toggleableActiveColor: themeColor,
       colorScheme: ColorScheme.light(
         brightness: brightness,
 
@@ -360,17 +358,17 @@ class _FastLibInitState extends State<FastLibInit> {
 
       ///[TextButton]
       textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(primary: themeColor),
+        style: TextButton.styleFrom(foregroundColor: themeColor),
       ),
 
       ///[ElevatedButton]
       elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(primary: themeColor),
+        style: ElevatedButton.styleFrom(foregroundColor: themeColor),
       ),
 
       ///[OutlinedButton]
       outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(primary: themeColor),
+        style: OutlinedButton.styleFrom(foregroundColor: themeColor),
       ),
     );
     themeData = themeData.copyWith(

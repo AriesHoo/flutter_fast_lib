@@ -19,7 +19,7 @@ class FastLibMixin extends DefaultFastLibMixin {
         ///下载知乎-apple store
         if (!navigation.url.startsWith('http') &&
             navigation.url.contains('://')) {
-          if (await canLaunch(navigation.url)) {
+          if (await canLaunchUrl(Uri.parse(navigation.url))) {
             int? position = await showDialog(
               context: currentContext,
               builder: (context) => AlertDialog(
@@ -41,7 +41,10 @@ class FastLibMixin extends DefaultFastLibMixin {
               ),
             );
             if (position == 1) {
-              launch(navigation.url);
+              launchUrl(
+                Uri.parse(navigation.url),
+                mode: LaunchMode.externalNonBrowserApplication,
+              );
             }
           } else {
             FastToastUtil.showError('系统无法打开该网址');

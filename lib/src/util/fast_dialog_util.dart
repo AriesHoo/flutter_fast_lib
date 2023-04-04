@@ -178,7 +178,7 @@ class FastDialogUtil {
       }
       return TextButton(
         style: TextButton.styleFrom(
-          primary: textColor,
+          foregroundColor: textColor,
         ),
         child: Text(
           text,

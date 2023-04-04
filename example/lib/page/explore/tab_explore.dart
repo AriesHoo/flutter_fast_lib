@@ -22,7 +22,7 @@ class TabExplore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FastLogUtil.e('build', tag: 'TabExploreTag');
-    return FastListProviderWidget<ArticleViewModel>(
+    return FastRefreshListProviderWidget<ArticleViewModel>(
       model: ArticleViewModel(url: url),
       onModelReady: onModelReady,
       appBarBuilder: (context, model) => showAppBar
@@ -109,7 +109,7 @@ class ArticleAdapter extends StatelessWidget {
             overflow: FastPlatformUtil.isWeb
                 ? TextOverflow.fade
                 : TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.subtitle2!.copyWith(
+            style: Theme.of(context).textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1,
                 ),
@@ -139,13 +139,13 @@ class ArticleAdapter extends StatelessWidget {
                 height: 0.5,
                 leading: 1,
               ),
-              style: Theme.of(context).textTheme.caption!.copyWith(
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   letterSpacing: 1,
                   color: Theme.of(context)
                       .textTheme
-                      .headline6!
-                      .color!
-                      .withOpacity(0.8)),
+                      .titleLarge
+                      ?.color
+                      ?.withOpacity(0.8)),
             ),
           ),
           Row(
@@ -161,7 +161,7 @@ class ArticleAdapter extends StatelessWidget {
                   overflow: FastPlatformUtil.isWeb
                       ? TextOverflow.fade
                       : TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.caption!.copyWith(
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 12,
                       ),
                 ),

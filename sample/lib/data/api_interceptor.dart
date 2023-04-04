@@ -109,7 +109,7 @@ class ApiInterceptor extends InterceptorsWrapper {
     if (err.error is FastTokenException) {
       ///token过期直接清空用户信息及权限列表
       UserHelper.clearUserInfo();
-      _showTokenDialog(err.error.code);
+      _showTokenDialog((err.error as FastTokenException).code);
     }
     super.onError(err, handler);
   }

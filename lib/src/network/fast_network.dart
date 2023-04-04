@@ -54,9 +54,9 @@ class FastNetwork {
     dio.options.baseUrl = baseUrl;
     dio.options.responseType = responseType;
     dio.options.contentType = contentType;
-    dio.options.connectTimeout = connectTimeout ?? 30 * 100;
-    dio.options.receiveTimeout = receiveTimeout ?? 30 * 100;
-    dio.options.sendTimeout = sendTimeout ?? 30 * 100;
+    dio.options.connectTimeout = Duration(milliseconds: connectTimeout ?? 30 * 1000);
+    dio.options.receiveTimeout = Duration(milliseconds: receiveTimeout ?? 30 * 1000);
+    dio.options.sendTimeout = Duration(milliseconds: sendTimeout ?? 30 * 1000);
 
     ///添加单个拦截器
     if (interceptor != null) {

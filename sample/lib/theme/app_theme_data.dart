@@ -22,7 +22,7 @@ class AppThemeData {
   static bool get darkMode => platformDarkMode;
 
   static ThemeData themeData(ColorScheme colorScheme, Color focusColor) {
-    var theme =ThemeData(
+    var theme = ThemeData(
       colorScheme: colorScheme,
       brightness: colorScheme.brightness,
       textTheme: _textTheme,
@@ -46,7 +46,7 @@ class AppThemeData {
           _lightFillColor.withOpacity(0.80),
           _darkFillColor,
         ),
-        contentTextStyle: _textTheme.subtitle1?.apply(color: _darkFillColor),
+        contentTextStyle: _textTheme.titleMedium?.apply(color: _darkFillColor),
       ),
       dialogTheme: DialogTheme(
         shape: fastLibMixin.defaultDialogShape,
@@ -75,10 +75,9 @@ class AppThemeData {
       ),
     );
     return theme.copyWith(
-      bottomNavigationBarTheme: theme.bottomNavigationBarTheme.copyWith(
-        backgroundColor: colorScheme.onBackground,
-      )
-    );
+        bottomNavigationBarTheme: theme.bottomNavigationBarTheme.copyWith(
+      backgroundColor: colorScheme.onBackground,
+    ));
   }
 
   static const ColorScheme lightColorScheme = ColorScheme(
@@ -119,29 +118,28 @@ class AppThemeData {
   static const _bold = FontWeight.w700;
 
   static final TextTheme _textTheme = TextTheme(
-    headline4: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 20.0),
-    headline5: GoogleFonts.oswald(fontWeight: _medium, fontSize: 16.0),
-    headline6: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 16.0),
+    headlineMedium: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 20.0),
+    headlineSmall: GoogleFonts.oswald(fontWeight: _medium, fontSize: 16.0),
+    titleLarge: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 16.0),
 
     ///ListTitle title
-    subtitle1: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 16.0),
+    titleMedium: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 16.0),
 
     ///ListTitle subtitle
-    subtitle2: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 14.0),
-    bodyText1: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 14.0),
-    bodyText2: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 16.0),
-    overline: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 12.0),
+    titleSmall: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 14.0),
+    bodyLarge: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 14.0),
+    bodyMedium: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 16.0),
+    labelSmall: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 12.0),
 
     ///Button类默认样式+TextButton等
-    button: GoogleFonts.montserrat(fontWeight: _semiBold, fontSize: 14.0),
+    labelLarge: GoogleFonts.montserrat(fontWeight: _semiBold, fontSize: 14.0),
 
     /// FormField-错误提示文本样式
-    caption: GoogleFonts.oswald(fontWeight: _semiBold, fontSize: 12.0),
+    bodySmall: GoogleFonts.oswald(fontWeight: _semiBold, fontSize: 12.0),
   );
 
   ///设置系统Bar主题
   static setSystemBarTheme({Color? systemNavigationBarColor}) async {
-
     ///黑色主题需加一个延迟等待底部bottomAppBarColor切换完成
     Future.delayed(
       Duration(
@@ -173,7 +171,7 @@ class AppThemeData {
       ///导航栏颜色-保持和bottomAppBarColor一致
       systemNavigationBarColor: systemNavigationBarColor ??
           (darkMode
-              ? Theme.of(currentContext).bottomAppBarColor
+              ? Theme.of(currentContext).bottomAppBarTheme.color
               : navigationEnable
                   ? (darkMode ? Colors.transparent : Colors.white)
                   : null),

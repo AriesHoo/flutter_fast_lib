@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
   flutter:
@@ -34,7 +34,7 @@ dependencies:
   #  跳转系统浏览器/打电话等
   url_launcher: ^6.0.13
   #  加载图片
-  extended_image: ^6.0.1
+  extended_image: ^6.2.2
   #  快速开发库
   flutter_fast_lib:
     path: '..'

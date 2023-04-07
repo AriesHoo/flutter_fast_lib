@@ -38,7 +38,6 @@ class _AppInitState extends State<AppInit> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return FastLibInit(
-      themeColor: Colors.pinkAccent,
       fastLibMixin: fastLibMixin,
       debugShowCheckedModeBanner: false,
       title: AppConstant.appTitle,

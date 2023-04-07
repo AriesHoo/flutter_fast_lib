@@ -38,7 +38,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FastLibInit(
-      themeColor: Colors.pinkAccent,
       fastLibMixin: fastLibMixin,
       debugShowCheckedModeBanner: false,
       title: AppConstant.appTitle,

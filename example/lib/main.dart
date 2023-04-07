@@ -44,11 +44,6 @@ class _MyAppState extends State<MyApp> {
 
       ///是否异步初始化[FastSpUtil]如果想同步执行则自己在main方法调用FastSpUtil.initialize
       initializeSp: true,
-      themeColor: Colors.green,
-      ///主题颜色
-      onGenerateTheme: (themeData) {
-        return themeData;
-      },
       theme: AppThemeData.lightThemeData,
       darkTheme: AppThemeData.darkThemeData,
       home: const MainTabPage(),

@@ -67,9 +67,10 @@ class FastLibMixin extends DefaultFastLibMixin {
       const WindmillIndicator.small();
 
   TextStyle get messageStyle =>
-      Theme.of(currentContext).textTheme.subtitle1!.copyWith(
-            fontSize: getFontSize(14),
-          );
+      Theme.of(currentContext).textTheme.titleMedium ??
+      const TextStyle().copyWith(
+        fontSize: getFontSize(14),
+      );
 
   ///加载中-获取数据
   @override
@@ -135,7 +136,7 @@ class FastLibMixin extends DefaultFastLibMixin {
     bool toast = true;
     if (e is DioError) {
       FastLogUtil.e('e:${e.type};message:${e.message}', tag: 'handleErrorTag');
-      errorMessage = e.message;
+      errorMessage = '${e.message}';
       e = e.error;
       errorType = e is FastTokenException || e is FastFailedException
           ? BasisErrorType.normal

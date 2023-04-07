@@ -11,13 +11,13 @@ class FastTabBarPage extends FastTabBar {
   bool get tabBarInTitle => true;
 
   @override
-  bool get withPageView => false;
+  bool get withPageView => true;
 
   @override
-  bool get isScrollable => false;
+  bool get isScrollable => true;
 
-  @override
-  Color? get tabColor => Theme.of(currentContext).appBarTheme.backgroundColor;
+  // @override
+  // Color? get tabColor => Theme.of(currentContext).appBarTheme.backgroundColor;
 
   // @override
   // Size? get appBarSize => Size.zero;

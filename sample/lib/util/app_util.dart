@@ -1,5 +1,5 @@
 import 'package:flutter_fast_lib/flutter_fast_lib.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 ///web项目信息
 WebBrowserInfo? webBrowserInfo;
@@ -62,9 +62,9 @@ double? parseDouble(dynamic value) {
 ///打开url
 void openUrl(String url) async {
   try {
-    bool can = await canLaunch(url);
+    bool can = await canLaunchUrlString(url);
     if (can) {
-      await launch(url);
+      await launchUrlString(url);
     } else {}
   } catch (e) {
     FastLogUtil.e('e:$e', tag: 'openUrlTag');

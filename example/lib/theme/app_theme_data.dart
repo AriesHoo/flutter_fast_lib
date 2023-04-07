@@ -16,7 +16,8 @@ class AppThemeData {
       themeData(darkColorScheme, _darkFocusColor);
 
   static ThemeData themeData(ColorScheme colorScheme, Color focusColor) {
-    return ThemeData(
+    var _themeData = ThemeData(
+      useMaterial3: true,
       colorScheme: colorScheme,
       textTheme: _textTheme,
       appBarTheme: AppBarTheme(
@@ -29,6 +30,7 @@ class AppThemeData {
       scaffoldBackgroundColor: colorScheme.background,
       highlightColor: Colors.transparent,
       focusColor: focusColor,
+
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
         backgroundColor: Color.alphaBlend(
@@ -36,6 +38,20 @@ class AppThemeData {
           _darkFillColor,
         ),
         contentTextStyle: _textTheme.titleMedium!.apply(color: _darkFillColor),
+      ),
+    );
+    return _themeData.copyWith(
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: _themeData.colorScheme.background,
+      ),
+      ///tabBar
+      tabBarTheme: TabBarTheme(
+        ///去掉水波纹
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        labelColor:
+            _themeData.useMaterial3 ? null : _themeData.colorScheme.primary,
+        unselectedLabelColor:
+            _themeData.useMaterial3 ? null : _themeData.colorScheme.onPrimary,
       ),
     );
   }
@@ -54,6 +70,7 @@ class AppThemeData {
     onSecondary: Color(0xFF322942),
     onSurface: Color(0xFF241E30),
     brightness: Brightness.light,
+    surfaceVariant: Colors.transparent,
   );
 
   static const ColorScheme darkColorScheme = ColorScheme(

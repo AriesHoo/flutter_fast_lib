@@ -1,6 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:common_utils/common_utils.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fast_lib/src/fast_manager.dart';
 import 'package:flutter_fast_lib/src/mixin/default_fast_lib_mixin.dart';
@@ -23,6 +22,7 @@ BuildContext? _context;
 ///FastLib Init--扩展MaterialApp增加全局配置
 ///1、2021-12-02 09:59 修改为[StatefulWidget]并增加[FastManager]初始化及[FastSpUtil]初始化
 ///2、2021-12-20 09:21 增加[textScaleFactor] [boldText]用于控制应用是否受系统设置影响
+///3、2023-04-07 10：20 初步升级Flutter3.0并移除部分默认配置(themeData)
 class FastLibInit extends StatefulWidget {
   const FastLibInit({
     Key? key,
@@ -60,9 +60,6 @@ class FastLibInit extends StatefulWidget {
     this.restorationScopeId,
     this.scrollBehavior,
     this.hideKeyboardWhenPressOtherWidget = true,
-    this.themeColor,
-    this.onGenerateTheme,
-    this.onGenerateDarkTheme,
     this.fastLibMixin,
     this.initializeSp = true,
     this.mediaQueryData,
@@ -115,15 +112,6 @@ class FastLibInit extends StatefulWidget {
 
   ///当点击其它widget关闭软键盘
   final bool hideKeyboardWhenPressOtherWidget;
-
-  ///主题色
-  final Color? themeColor;
-
-  ///将内部设置好的light主题返回开发者轻度修改
-  final ThemeData Function(ThemeData themeData)? onGenerateTheme;
-
-  ///将内部设置好的dark主题返回开发者轻度修改
-  final ThemeData Function(ThemeData themeData)? onGenerateDarkTheme;
 
   ///DefaultFastLibMixin
   final DefaultFastLibMixin? fastLibMixin;
@@ -245,17 +233,6 @@ class _FastLibInitState extends State<FastLibInit> {
     ///GlobalKey
     fastLibNavigatorKey = widget.navigatorKey ?? fastLibNavigatorKey;
 
-    ///lightTheme
-    ThemeData lightThemeData = themeData(
-      themeColor: widget.themeColor,
-    );
-
-    ///darkTheme
-    ThemeData darkThemeData = themeData(
-      darkMode: true,
-      themeColor: widget.themeColor,
-    );
-
     ///Toast Builder
     ///这个位置不要乱调整-否则可能出现未知问题;如Android 返回键拦截失效等问题
     final botToastBuilder = BotToastInit();
@@ -295,14 +272,8 @@ class _FastLibInitState extends State<FastLibInit> {
       title: widget.title,
       onGenerateTitle: widget.onGenerateTitle,
       color: widget.color,
-      theme: widget.theme ??
-          (widget.onGenerateTheme != null
-              ? widget.onGenerateTheme!(lightThemeData)
-              : lightThemeData),
-      darkTheme: widget.darkTheme ??
-          (widget.onGenerateDarkTheme != null
-              ? widget.onGenerateDarkTheme!(darkThemeData)
-              : darkThemeData),
+      theme: widget.theme,
+      darkTheme: widget.darkTheme,
       highContrastTheme: widget.highContrastTheme,
       highContrastDarkTheme: widget.highContrastDarkTheme,
       themeMode: widget.themeMode,
@@ -322,171 +293,5 @@ class _FastLibInitState extends State<FastLibInit> {
       restorationScopeId: widget.restorationScopeId,
       scrollBehavior: widget.scrollBehavior,
     );
-  }
-
-  ///初始化主题
-  themeData({bool darkMode = false, Color? themeColor}) {
-    ///dark状态darkMode 为系统darkMode
-    ///userDarkMode为人为黑色主题
-    var isDark = darkMode;
-    Brightness brightness = isDark ? Brightness.dark : Brightness.light;
-    Color? themeColorAlpha = themeColor?.withOpacity(0.5);
-    var themeData = ThemeData(
-      // platform: TargetPlatform.windows,
-      ///主题浅色或深色-
-      brightness: brightness,
-
-      ///强调色
-      primaryColor: themeColor,
-      colorScheme: ColorScheme.light(
-        brightness: brightness,
-
-        ///强调色
-        primary: themeColor ?? Colors.blue,
-        secondary: themeColor ?? const Color(0xff03dac6),
-      ),
-
-      ///输入框光标
-      textSelectionTheme: TextSelectionThemeData(
-        cursorColor: themeColor,
-        selectionColor: themeColorAlpha,
-        selectionHandleColor: themeColorAlpha,
-      ),
-
-      ///指示器颜色--如TabBar
-      indicatorColor: themeColor,
-
-      ///[TextButton]
-      textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(foregroundColor: themeColor),
-      ),
-
-      ///[ElevatedButton]
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(foregroundColor: themeColor),
-      ),
-
-      ///[OutlinedButton]
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(foregroundColor: themeColor),
-      ),
-    );
-    themeData = themeData.copyWith(
-      cupertinoOverrideTheme: CupertinoThemeData(
-        primaryColor: themeColor,
-      ),
-
-      ///主题设置Appbar样式背景
-      appBarTheme: themeData.appBarTheme.copyWith(
-        ///根据主题设置Appbar样式背景
-        color: themeData.cardColor,
-
-        ///去掉海拔高度
-        elevation: 0,
-
-        ///titleText 样式--textTheme废弃
-        titleTextStyle: TextStyle(
-          color: isDark ? Colors.white : themeColor,
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
-        ),
-
-        ///action及leading Text样式 原body1废弃
-        toolbarTextStyle: TextStyle(
-          color: isDark ? Colors.white : themeColor,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-        ),
-
-        ///icon样式
-        iconTheme: IconThemeData(
-          color: isDark ? Colors.white : themeColor,
-        ),
-      ),
-      iconTheme: themeData.iconTheme.copyWith(
-        color: themeColor,
-      ),
-      scaffoldBackgroundColor: themeData.cardColor,
-
-      ///水波纹
-      splashColor: themeColorAlpha,
-
-      ///鼠标悬浮颜色
-      hoverColor: themeColorAlpha,
-
-      ///长按提示文本样式
-      tooltipTheme: themeData.tooltipTheme.copyWith(
-        textStyle: TextStyle(
-          fontSize: 14,
-          color: (isDark ? Colors.black : Colors.white).withOpacity(0.9),
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-        margin: const EdgeInsets.only(
-          left: 12,
-          right: 12,
-          bottom: 12,
-          top: 2,
-        ),
-        decoration: BoxDecoration(
-          color: (isDark ? Colors.white : Colors.black).withOpacity(0.75),
-          borderRadius: const BorderRadius.all(Radius.circular(6)),
-        ),
-      ),
-
-      bottomNavigationBarTheme: themeData.bottomNavigationBarTheme.copyWith(
-        selectedItemColor: themeColor,
-      ),
-
-      ///TabBar样式设置
-      tabBarTheme: themeData.tabBarTheme.copyWith(
-
-          ///标签内边距
-          labelPadding: const EdgeInsets.symmetric(horizontal: 8),
-
-          ///选中文字样式
-          labelStyle: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 14,
-          ),
-
-          ///未选择样式
-          unselectedLabelStyle: const TextStyle(
-            fontWeight: FontWeight.normal,
-            fontSize: 14,
-          ),
-
-          ///指示器保持与label一致
-          indicatorSize: TabBarIndicatorSize.label),
-
-      ///floatingActionButton
-      floatingActionButtonTheme: themeData.floatingActionButtonTheme.copyWith(
-        foregroundColor: themeColor,
-        backgroundColor: themeData.cardColor,
-        elevation: 10,
-        splashColor: themeColorAlpha,
-      ),
-
-      ///dialog主题
-      dialogTheme: const DialogTheme(),
-
-      ///Divider分割线组件样式添加一个间隔线
-      dividerTheme: DividerThemeData(
-        ///线颜色
-        color: themeData.hintColor.withOpacity(0.1),
-
-        ///线粗细
-        thickness: 0.7,
-
-        ///前间隔
-        indent: 0,
-
-        ///后间隔
-        endIndent: 0,
-      ),
-
-      ///全局获取焦点颜色--键盘/遥控器上下左右enter控制--目前还没弄清楚焦点处理逻辑
-      focusColor: Colors.transparent,
-    );
-    return themeData;
   }
 }

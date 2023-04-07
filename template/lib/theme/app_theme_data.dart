@@ -39,7 +39,7 @@ class AppThemeData {
           _lightFillColor.withOpacity(0.80),
           _darkFillColor,
         ),
-        contentTextStyle: _textTheme.subtitle1?.apply(color: _darkFillColor),
+        contentTextStyle: _textTheme.titleMedium?.apply(color: _darkFillColor),
       ),
       dialogTheme: DialogTheme(
         shape: fastLibMixin.defaultDialogShape,
@@ -107,23 +107,23 @@ class AppThemeData {
   static const _bold = FontWeight.w700;
 
   static final TextTheme _textTheme = TextTheme(
-    headline4: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 20.0),
-    headline5: GoogleFonts.oswald(fontWeight: _medium, fontSize: 16.0),
-    headline6: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 16.0),
+    headlineMedium: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 20.0),
+    headlineSmall: GoogleFonts.oswald(fontWeight: _medium, fontSize: 16.0),
+    titleLarge: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 16.0),
 
     ///ListTitle title
-    subtitle1: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 16.0),
+    titleMedium: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 16.0),
 
     ///ListTitle subtitle
-    subtitle2: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 14.0),
-    bodyText1: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 14.0),
-    bodyText2: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 16.0),
-    overline: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 12.0),
+    titleSmall: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 14.0),
+    bodyLarge: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 14.0),
+    bodyMedium: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 16.0),
+    labelSmall: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 12.0),
 
     ///Button类默认样式+TextButton等
-    button: GoogleFonts.montserrat(fontWeight: _semiBold, fontSize: 14.0),
+    labelLarge: GoogleFonts.montserrat(fontWeight: _semiBold, fontSize: 14.0),
 
     /// FormField-错误提示文本样式
-    caption: GoogleFonts.oswald(fontWeight: _semiBold, fontSize: 12.0),
+    bodySmall: GoogleFonts.oswald(fontWeight: _semiBold, fontSize: 12.0),
   );
 }

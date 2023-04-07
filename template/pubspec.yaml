@@ -45,7 +45,7 @@ dependencies:
   #  网络检查
   connectivity_plus: 2.0.3
   #  加载图片
-  extended_image: ^6.0.1
+  extended_image: ^6.2.2
   #  UI组件
   element_ui: ^0.0.1
   #  跳转系统浏览器/打电话等

@@ -204,17 +204,15 @@ class _FastTabBarState extends State<FastTabBar>
       controller: _tabController,
       isScrollable: widget.isScrollable,
       padding: widget.padding,
-      indicatorColor: widget.indicatorColor ?? Theme
-          .of(context)
-          .colorScheme
-          .primary,
+      indicatorColor:
+          widget.indicatorColor ?? Theme.of(context).colorScheme.primary,
       automaticIndicatorColorAdjustment: true,
       indicatorWeight: widget.indicatorWeight,
       indicatorPadding: widget.indicatorPadding,
 
       indicator: widget.indicator,
       indicatorSize: widget.indicatorSize,
-      labelColor: widget.labelColor,
+      labelColor: widget.labelColor??Theme.of(context).appBarTheme.toolbarTextStyle?.color,
       labelStyle: widget.labelStyle,
       labelPadding: widget.labelPadding,
       unselectedLabelColor: widget.unselectedLabelColor,
@@ -227,32 +225,13 @@ class _FastTabBarState extends State<FastTabBar>
       physics: widget.physics,
     );
 
-    ///主题设置-避免某些情况下主题切换未及时生效问题
-    _tabBar = Theme(data: Theme.of(context), child: _tabBar);
-
     ///TabBar Size
     Size _tabSize = showTab ? preferredTabSize : Size.zero;
 
     ///尺寸定制化TabBar
     PreferredSizeWidget _tabBarWidget = PreferredSize(
       child: showTab
-          ? Container(
-        height: showTab ? _tabSize.height : 0.0,
-        width: _tabSize.width,
-        
-        child: _tabBar,
-        color: widget.tabDecoration == null
-            ? (widget.tabColor ??
-            Theme
-                .of(context)
-                .appBarTheme
-                .backgroundColor ??
-            Theme
-                .of(context)
-                .cardColor)
-            : null,
-        decoration: widget.tabDecoration,
-      )
+          ? _tabBar
           : const SizedBox(),
       preferredSize: _tabSize,
     );
@@ -262,13 +241,13 @@ class _FastTabBarState extends State<FastTabBar>
 
     ///appBar最终Size
     Size _appSize = Size.fromHeight((widget.appBarSize != null
-        ? widget.appBarSize!.height
-        : kToolbarHeight) +
+            ? widget.appBarSize!.height
+            : kToolbarHeight) +
         (_bottom?.preferredSize.height ?? 0.0));
 
     ///遍历TabBar子集
     List<Widget> _listWidget = _tabBars.map(
-          (e) {
+      (e) {
         int index = _tabBars.indexOf(e);
         return ChildPageLifecycleWrapper(
           index: index,
@@ -288,9 +267,9 @@ class _FastTabBarState extends State<FastTabBar>
     ///最终title--将title回调回去由最终调用处理并可设置TabBar位置
     Widget? _title = widget.titleBuilder != null
         ? widget.titleBuilder!(
-      context,
-      widget.tabBarInTitle ? _tabBarWidget : null,
-    )
+            context,
+            widget.tabBarInTitle ? _tabBarWidget : null,
+          )
         : null;
     showAppBar = _title != null || showAppBar;
     Widget container = Scaffold(
@@ -299,18 +278,18 @@ class _FastTabBarState extends State<FastTabBar>
         preferredSize: _appSize,
         child: showAppBar
             ? AppBar(
-          leading: widget.leading,
-          actions: widget.actions,
-          title: _title ?? (widget.tabBarInTitle ? _tabBarWidget : null),
-          bottom: _bottom,
-          backgroundColor: widget.appBarBackgroundColor,
-          flexibleSpace: widget.flexibleSpace,
-          titleTextStyle: widget.titleTextStyle,
-          toolbarTextStyle: widget.toolbarTextStyle,
-          iconTheme: widget.iconTheme,
-          actionsIconTheme: widget.actionsIconTheme,
-          systemOverlayStyle: widget.systemOverlayStyle,
-        )
+                leading: widget.leading,
+                actions: widget.actions,
+                title: _title ?? (widget.tabBarInTitle ? _tabBarWidget : null),
+                bottom: _bottom,
+                backgroundColor: widget.appBarBackgroundColor,
+                flexibleSpace: widget.flexibleSpace,
+                titleTextStyle: widget.titleTextStyle,
+                toolbarTextStyle: widget.toolbarTextStyle,
+                iconTheme: widget.iconTheme,
+                actionsIconTheme: widget.actionsIconTheme,
+                systemOverlayStyle: widget.systemOverlayStyle,
+              )
             : _tabBarWidget,
       ),
       body: PageViewLifecycleWrapper(
@@ -318,17 +297,17 @@ class _FastTabBarState extends State<FastTabBar>
             widget.onLifecycleEvent?.call(event, -1, widget),
         child: widget.withPageView
             ? PageView(
-          children: _listWidget,
-          physics: widget.physics,
-          onPageChanged: (pageIndex) =>
-              _tabController.animateTo(pageIndex),
-          controller: _pageController,
-        )
+                children: _listWidget,
+                physics: widget.physics,
+                onPageChanged: (pageIndex) =>
+                    _tabController.animateTo(pageIndex),
+                controller: _pageController,
+              )
             : TabBarView(
-          physics: widget.physics,
-          controller: _tabController,
-          children: _listWidget,
-        ),
+                physics: widget.physics,
+                controller: _tabController,
+                children: _listWidget,
+              ),
       ),
       bottomNavigationBar: widget.bottomNavigationBar,
       floatingActionButton: widget.floatingActionButton,

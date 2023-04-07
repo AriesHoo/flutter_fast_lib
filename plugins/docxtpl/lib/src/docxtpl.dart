@@ -91,8 +91,7 @@ class DocxTpl {
 
   /// write all changes and save, returns String path to file
   Future<String> save(String filepath) async {
-    File(filepath)
-      ..createSync(recursive: true);
+    File(filepath)..createSync(recursive: true);
 
     var zipF = ZipFileEncoder();
 
@@ -230,7 +229,7 @@ class DocxTpl {
 
       // ignore: omit_local_variable_types
       ArchiveFile? zippedFile = _zip.files.firstWhereOrNull(
-            (zippedElement) => zippedElement.name == '[Content_Types].xml',
+        (zippedElement) => zippedElement.name == '[Content_Types].xml',
       );
 
       if (zippedFile == null) {
@@ -265,9 +264,9 @@ class DocxTpl {
           for (var contentTypePart in CONTENT_TYPES_PARTS) {
             if (type == contentTypePart) {
               // checking
-              // var chunkResp =
-              await __getTreeOfFile(file);
-              // _parts[chunkResp.first] = chunkResp.last;
+              var chunkResp = await __getTreeOfFile(file);
+              ///关键代码去掉会造成无法解析需要替换的key
+              _parts[chunkResp.first] = chunkResp.last;
             }
           }
 

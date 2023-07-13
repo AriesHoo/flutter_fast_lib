@@ -17,7 +17,7 @@ class AppThemeData {
 
   static ThemeData themeData(ColorScheme colorScheme, Color focusColor) {
     var _themeData = ThemeData(
-      useMaterial3: true,
+      useMaterial3: false,
       colorScheme: colorScheme,
       textTheme: _textTheme,
       appBarTheme: AppBarTheme(

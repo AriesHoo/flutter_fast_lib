@@ -1,3 +1,5 @@
+package plugins.share.android
+
 group 'io.flutter.plugins.share'
 version '1.0-SNAPSHOT'
 

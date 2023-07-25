@@ -83,7 +83,7 @@ class BasisViewModel with ChangeNotifier {
       return await doRequest;
     } catch (e, stack) {
       if (onError != null) {
-        onError.call(e is DioError ? e.error : e, stack);
+        onError.call(e is DioException ? e.error : e, stack);
       } else {
         setError(e, stack);
       }

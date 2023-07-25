@@ -10,7 +10,6 @@ import android.view.WindowManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import me.aries.flutter_fast_lib.flutter_fast_lib.RomUtil;
 
 /**
  * @Author: AriesHoo on 2018/7/19 9:50
@@ -52,16 +51,16 @@ public class StatusBarUtil {
         }
         int result = STATUS_BAR_TYPE_DEFAULT;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //MIUI 9版本开始状态栏文字颜色恢复为系统原生方案-为防止反复修改先进行6.0方案
-            if (setStatusBarModeForAndroidM(window, true)) {
-                result = STATUS_BAR_TYPE_ANDROID_M;
-            }
             if (setStatusBarModeForMIUI(window, true)) {
                 result = STATUS_BAR_TYPE_MI_UI;
             } else if (setStatusBarModeForFlyMe(window, true)) {
                 result = STATUS_BAR_TYPE_FLY_ME;
             } else if (setStatusBarModeForColorOS(window, true)) {
                 result = STATUS_BAR_TYPE_COLOR_OS;
+            }
+            //MIUI 9版本开始状态栏文字颜色恢复为系统原生方案-为防止反复修改先进行6.0方案
+            if (setStatusBarModeForAndroidM(window, true)) {
+                result = STATUS_BAR_TYPE_ANDROID_M;
             }
         }
         return result;
@@ -83,16 +82,16 @@ public class StatusBarUtil {
     public static int setStatusBarDarkMode(Window window) {
         int result = STATUS_BAR_TYPE_DEFAULT;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //MIUI 9版本开始状态栏文字颜色恢复为系统原生方案-为防止反复修改先进行6.0方案
-            if (setStatusBarModeForAndroidM(window, false)) {
-                result = STATUS_BAR_TYPE_ANDROID_M;
-            }
             if (setStatusBarModeForMIUI(window, false)) {
                 result = STATUS_BAR_TYPE_MI_UI;
             } else if (setStatusBarModeForFlyMe(window, false)) {
                 result = STATUS_BAR_TYPE_FLY_ME;
             } else if (setStatusBarModeForColorOS(window, false)) {
                 result = STATUS_BAR_TYPE_COLOR_OS;
+            }
+            //MIUI 9版本开始状态栏文字颜色恢复为系统原生方案-为防止反复修改先进行6.0方案
+            if (setStatusBarModeForAndroidM(window, false)) {
+                result = STATUS_BAR_TYPE_ANDROID_M;
             }
         }
         return result;

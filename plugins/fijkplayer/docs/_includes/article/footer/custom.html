@@ -1,0 +1,49 @@
+<!-- start custom article footer snippet -->
+{% assign _root_path = page.path | slice: 0, 5 %}
+{% assign _lang = page.lang | slice: 0, 2 %}
+{%- if _root_path == '_docs' -%}
+  {%- if _lang == 'zh' -%}
+    <div class="article__content my-3">
+      <hr />
+      <p><strong>您的支持是我的动力。你可以通过以下方式支持我：</strong></p>
+      <ul>
+        <li>给该项目点赞 &nbsp;<a style="vertical-align: text-bottom;" href="https://github.com/befovy/fijkplayer">
+          <img src="https://img.shields.io/github/stars/befovy/fijkplayer.svg?label=Stars&style=social" alt="给该项目点赞" />
+        </a></li>
+        <li>关注我的 Github &nbsp;<a style="vertical-align: text-bottom;"  href="https://github.com/befovy">
+          <img src="https://img.shields.io/github/followers/befovy.svg?label=Follow&style=social" alt="关注我的 Github" />
+        </a></li>
+      </ul>
+
+      <table>
+        <thead><tr>
+          <th>微信赞赏码</th>
+          <th>支付宝</th>
+        </tr></thead>
+        <tbody><tr>
+          <td><img style="max-width: 160px; max-height: 160px" src="https://cdn.jsdelivr.net/gh/befovy/images@master/assets/wechat-qr-code.jpeg" alt="微信赞赏码" /></td>
+          <td><img style="max-width: 160px; max-height: 160px" src="https://cdn.jsdelivr.net/gh/befovy/images@master/assets/alipay-qr-code.jpeg" alt="支付宝二维码" /></td>
+        </tr></tbody>
+      </table>
+
+    </div>
+
+  {%- else -%}
+    <div class="article__content my-3">
+      <hr />
+      <p><strong>Support me in the following ways:</strong></p>
+      <ul>
+        <li>Star this project &nbsp;<a href="https://github.com/befovy/fijkplayer">
+          <img src="https://img.shields.io/github/stars/befovy/fijkplayer.svg?label=Stars&style=social" alt="给该项目点赞" />
+        </a></li>
+        <li>Follow me on Github &nbsp;<a href="https://github.com/befovy">
+          <img src="https://img.shields.io/github/followers/befovy.svg?label=Follow&style=social" alt="关注我的 Github" />
+        </a></li>
+        <li>Buy me a coffee. <a href="https://paypal.me/befovy"> <img src="https://img.shields.io/badge/PayPal-tip%20me-1462ab.svg?logo=paypal" alt="Tip Me via PayPal"/></a> </li>
+      </ul>
+
+  {%- endif -%}
+
+
+{%- endif -%}
+<!-- end custom article footer snippet -->

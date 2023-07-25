@@ -139,7 +139,6 @@ class HighlightCard extends StatelessWidget {
           shadowColor: model.highlight
               ? shadowHighlightColor ?? Colors.deepPurpleAccent
               : shadowColor ?? Theme.of(context).colorScheme.primary,
-          child: builder(context, model),
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(
             borderRadius: borderRadius ??
@@ -155,6 +154,7 @@ class HighlightCard extends StatelessWidget {
                   )
                 : BorderSide.none,
           ),
+          child: builder(context, model),
         ),
       ),
     );

@@ -12,7 +12,7 @@ class FastKeepAlive extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _FastKeepAliveState createState() => _FastKeepAliveState();
+  State<FastKeepAlive> createState() => _FastKeepAliveState();
 }
 
 class _FastKeepAliveState extends State<FastKeepAlive>

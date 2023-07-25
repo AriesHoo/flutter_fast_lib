@@ -16,43 +16,10 @@ class AppThemeData {
       themeData(darkColorScheme, _darkFocusColor);
 
   static ThemeData themeData(ColorScheme colorScheme, Color focusColor) {
-    var _themeData = ThemeData(
-      useMaterial3: false,
-      colorScheme: colorScheme,
-      textTheme: _textTheme,
-      appBarTheme: AppBarTheme(
-        backgroundColor: colorScheme.background,
-        elevation: 0,
-        iconTheme: IconThemeData(color: colorScheme.primary),
-      ),
-      iconTheme: IconThemeData(color: colorScheme.onPrimary),
-      canvasColor: colorScheme.background,
-      scaffoldBackgroundColor: colorScheme.background,
-      highlightColor: Colors.transparent,
-      focusColor: focusColor,
-
-      snackBarTheme: SnackBarThemeData(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Color.alphaBlend(
-          _lightFillColor.withOpacity(0.80),
-          _darkFillColor,
-        ),
-        contentTextStyle: _textTheme.titleMedium!.apply(color: _darkFillColor),
-      ),
-    );
-    return _themeData.copyWith(
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: _themeData.colorScheme.background,
-      ),
-      ///tabBar
-      tabBarTheme: TabBarTheme(
-        ///去掉水波纹
-        overlayColor: MaterialStateProperty.all(Colors.transparent),
-        labelColor:
-            _themeData.useMaterial3 ? null : _themeData.colorScheme.primary,
-        unselectedLabelColor:
-            _themeData.useMaterial3 ? null : _themeData.colorScheme.onPrimary,
-      ),
+    return ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: colorScheme.primary),
+        textTheme: _textTheme,
     );
   }
 

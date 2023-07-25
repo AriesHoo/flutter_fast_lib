@@ -56,7 +56,7 @@ class WindmillIndicator extends StatefulWidget {
         super(key: key);
 
   @override
-  _WindmillIndicatorState createState() => _WindmillIndicatorState();
+  State<WindmillIndicator> createState() => _WindmillIndicatorState();
 }
 
 class _WindmillIndicatorState extends State<WindmillIndicator>
@@ -163,13 +163,13 @@ class WindmillWing extends StatelessWidget {
       transformAlignment: Alignment.bottomCenter,
       transform: Matrix4.translationValues(0, -size / 2, 0)..rotateZ(angle),
       child: ClipPath(
+        clipper: WindmillClipPath(),
         child: Container(
           width: size,
           height: size,
           alignment: Alignment.center,
           color: color,
         ),
-        clipper: WindmillClipPath(),
       ),
     );
   }

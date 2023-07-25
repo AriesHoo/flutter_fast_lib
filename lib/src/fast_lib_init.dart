@@ -1,9 +1,9 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_fast_lib/src/fast_manager.dart';
 import 'package:flutter_fast_lib/src/mixin/default_fast_lib_mixin.dart';
-import 'package:flutter_fast_lib/src/util/fast_log_util.dart';
 import 'package:flutter_fast_lib/src/util/fast_sp_util.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lifecycle/lifecycle.dart';
@@ -20,12 +20,11 @@ BuildContext get currentContext =>
 BuildContext? _context;
 
 ///FastLib Init--扩展MaterialApp增加全局配置
-///1、2021-12-02 09:59 修改为[StatefulWidget]并增加[FastManager]初始化及[FastSpUtil]初始化
-///2、2021-12-20 09:21 增加[textScaleFactor] [boldText]用于控制应用是否受系统设置影响
-///3、2023-04-07 10：20 初步升级Flutter3.0并移除部分默认配置(themeData)
+///1、2023-07-21开始重构只增加[fastLibMixin]、[initializeSp]、[hideKeyboardWhenPressOtherWidget]配置
+///软键盘控制--参考 http://laomengit.com/blog/20200909/DismissKeyboard.html
 class FastLibInit extends StatefulWidget {
   const FastLibInit({
-    Key? key,
+    super.key,
     this.navigatorKey,
     this.scaffoldMessengerKey,
     this.home,
@@ -44,6 +43,8 @@ class FastLibInit extends StatefulWidget {
     this.highContrastTheme,
     this.highContrastDarkTheme,
     this.themeMode = ThemeMode.system,
+    this.themeAnimationDuration = kThemeAnimationDuration,
+    this.themeAnimationCurve = Curves.linear,
     this.locale,
     this.localizationsDelegates,
     this.localeListResolutionCallback,
@@ -59,18 +60,13 @@ class FastLibInit extends StatefulWidget {
     this.actions,
     this.restorationScopeId,
     this.scrollBehavior,
-    this.hideKeyboardWhenPressOtherWidget = true,
     this.fastLibMixin,
     this.initializeSp = true,
-    this.mediaQueryData,
-    this.textScaleFactor = 1.0,
-    this.boldText,
-    this.resizeToAvoidBottomInset,
+    this.hideKeyboardWhenPressOtherWidget = true,
   })  : routeInformationProvider = null,
         routeInformationParser = null,
         routerDelegate = null,
-        backButtonDispatcher = null,
-        super(key: key);
+        backButtonDispatcher = null;
 
   final GlobalKey<NavigatorState>? navigatorKey;
   final GlobalKey<ScaffoldMessengerState>? scaffoldMessengerKey;
@@ -93,6 +89,8 @@ class FastLibInit extends StatefulWidget {
   final ThemeData? highContrastTheme;
   final ThemeData? highContrastDarkTheme;
   final ThemeMode? themeMode;
+  final Duration themeAnimationDuration;
+  final Curve themeAnimationCurve;
   final Color? color;
   final Locale? locale;
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
@@ -110,9 +108,6 @@ class FastLibInit extends StatefulWidget {
   final ScrollBehavior? scrollBehavior;
   final bool debugShowMaterialGrid;
 
-  ///当点击其它widget关闭软键盘
-  final bool hideKeyboardWhenPressOtherWidget;
-
   ///DefaultFastLibMixin
   final DefaultFastLibMixin? fastLibMixin;
 
@@ -121,28 +116,17 @@ class FastLibInit extends StatefulWidget {
   ///Android 模拟器0.9-2.4秒 真机 1秒左右
   final bool initializeSp;
 
-  ///默认使用[MediaQuery.of(context)]
-  final MediaQueryData? mediaQueryData;
-
-  ///缩放因子-控制应用是否受系统字号控制
-  final double textScaleFactor;
-
-  ///是否粗体文字
-  final bool? boldText;
-
-  ///Scaffold 用于控制底部有输入框页面是否自动留出位置
-  final bool? resizeToAvoidBottomInset;
+  ///当点击其它widget关闭软键盘
+  final bool hideKeyboardWhenPressOtherWidget;
 
   @override
-  _FastLibInitState createState() => _FastLibInitState();
+  State<FastLibInit> createState() => _FastLibInitState();
 }
 
 class _FastLibInitState extends State<FastLibInit> {
   @override
   void initState() {
     _context = context;
-    FastLogUtil.e('initState_context:$context;currentContext:$currentContext',
-        tag: 'FastLibInitTag');
     if (widget.fastLibMixin != null) {
       FastManager.getInstance().setMixin(defaultMixin: widget.fastLibMixin);
     }
@@ -153,20 +137,7 @@ class _FastLibInitState extends State<FastLibInit> {
   }
 
   @override
-  void didUpdateWidget(covariant FastLibInit oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    FastLogUtil.e(
-      'oldTheme:${oldWidget.theme?.colorScheme.primary};newTheme:${oldWidget.theme?.colorScheme.primary}',
-      tag: 'FastInitTag',
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
-    FastLogUtil.e('build_context:$context;currentContext:$currentContext',
-        tag: 'FastLibInitTag');
-
     ///路由
     List<NavigatorObserver> observers = [];
     if (ObjectUtil.isNotEmpty(widget.navigatorObservers)) {
@@ -201,35 +172,6 @@ class _FastLibInitState extends State<FastLibInit> {
     ];
     listSupportedLocales.addAll(widget.supportedLocales);
 
-    ///软键盘控制
-    ///参考http://laomengit.com/blog/20200909/DismissKeyboard.html
-    TransitionBuilder? keyboardBuilder;
-    if (widget.hideKeyboardWhenPressOtherWidget) {
-      ///此处需要Scaffold包裹否则报错To introduce a Material widget, you can either directly include one, or use a widget that contains Material itself, such as a Card, Dialog, Drawer, or Scaffold.
-      ///https://blog.csdn.net/yechaoa/article/details/90693377
-      keyboardBuilder = (context, child) => Scaffold(
-            resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
-            body: GestureDetector(
-              onTap: () {
-                FocusScopeNode currentFocus = FocusScope.of(context);
-
-                ///当前有获取焦点的控件
-                if (currentFocus.focusedChild != null) {
-                  ///关闭软键盘方式一
-                  FocusManager.instance.primaryFocus?.unfocus();
-
-                  ///关闭软键盘方式二-channel
-                  // SystemChannels.textInput.invokeMethod('TextInput.hide');
-
-                  ///关闭软键盘方式三-焦点转移
-                  // FocusScope.of(context).requestFocus(FocusNode());
-                }
-              },
-              child: child,
-            ),
-          );
-    }
-
     ///GlobalKey
     fastLibNavigatorKey = widget.navigatorKey ?? fastLibNavigatorKey;
 
@@ -237,6 +179,7 @@ class _FastLibInitState extends State<FastLibInit> {
     ///这个位置不要乱调整-否则可能出现未知问题;如Android 返回键拦截失效等问题
     final botToastBuilder = BotToastInit();
     return MaterialApp(
+      key: widget.key,
       navigatorKey: fastLibNavigatorKey,
       scaffoldMessengerKey: widget.scaffoldMessengerKey,
       home: widget.home,
@@ -249,25 +192,13 @@ class _FastLibInitState extends State<FastLibInit> {
       builder: (context, kid) {
         ///添加toast
         kid = botToastBuilder(context, kid);
-
-        ///添加外部builder
-        if (widget.builder != null) {
-          kid = widget.builder!(context, kid);
-        }
-
-        ///添加软键盘控制
-        if (keyboardBuilder != null) {
+        if (widget.hideKeyboardWhenPressOtherWidget) {
+          final keyboardBuilder = KeyboardBuilder();
           kid = keyboardBuilder(context, kid);
         }
 
-        ///设置应用配置是否受系统影响
-        return MediaQuery(
-          data: (widget.mediaQueryData ?? MediaQuery.of(context)).copyWith(
-            textScaleFactor: widget.textScaleFactor,
-            boldText: widget.boldText,
-          ),
-          child: kid,
-        );
+        ///先由外部回调没有则直接返回kid
+        return widget.builder?.call(context, kid) ?? kid;
       },
       title: widget.title,
       onGenerateTitle: widget.onGenerateTitle,
@@ -277,6 +208,8 @@ class _FastLibInitState extends State<FastLibInit> {
       highContrastTheme: widget.highContrastTheme,
       highContrastDarkTheme: widget.highContrastDarkTheme,
       themeMode: widget.themeMode,
+      themeAnimationDuration: widget.themeAnimationDuration,
+      themeAnimationCurve: widget.themeAnimationCurve,
       locale: widget.locale,
       localizationsDelegates: listLocalizationsDelegates,
       localeListResolutionCallback: widget.localeListResolutionCallback,
@@ -294,4 +227,29 @@ class _FastLibInitState extends State<FastLibInit> {
       scrollBehavior: widget.scrollBehavior,
     );
   }
+}
+
+///增加点击非输入框区域关闭软键盘Builder
+// ignore: non_constant_identifier_names
+TransitionBuilder KeyboardBuilder() {
+  return (_, Widget? child) {
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(currentContext);
+
+        ///当前有获取焦点的控件
+        if (currentFocus.focusedChild != null) {
+          ///关闭软键盘方式一
+          FocusManager.instance.primaryFocus?.unfocus();
+
+          ///关闭软键盘方式二-channel
+          SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+          ///关闭软键盘方式三-焦点转移
+          FocusScope.of(currentContext).requestFocus(FocusNode());
+        }
+      },
+      child: child,
+    );
+  };
 }

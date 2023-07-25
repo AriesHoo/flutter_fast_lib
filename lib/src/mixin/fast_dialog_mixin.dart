@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fast_lib/flutter_fast_lib.dart';
@@ -23,9 +21,11 @@ mixin FastDialogMixin {
   EdgeInsets get defaultInsetPadding => EdgeInsets.only(
         left: 20,
         right: 20,
-        bottom: MediaQueryData.fromWindow(window).padding.bottom + 20,
+        bottom:
+            MediaQueryData.fromView(View.of(currentContext)).padding.bottom +
+                20,
         top: FastPlatformUtil.isMobile
-            ? MediaQueryData.fromWindow(window).padding.top
+            ? MediaQueryData.fromView(View.of(currentContext)).padding.top
             : 20,
       );
 

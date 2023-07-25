@@ -1,6 +1,12 @@
 package me.aries.flutter_fast_lib.flutter_fast_lib;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+
 import androidx.annotation.NonNull;
+
+import java.lang.reflect.Method;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
@@ -9,15 +15,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-
-import android.content.Intent;
-import android.content.Context;
-import android.app.Activity;
-
-import java.lang.reflect.Method;
-import me.aries.flutter_fast_lib.flutter_fast_lib.NavigationBarUtil;
-import me.aries.flutter_fast_lib.flutter_fast_lib.StatusBarUtil;
-import me.aries.flutter_fast_lib.flutter_fast_lib.DeviceIdUtil;
 
 /**
  * FlutterFastLibPlugin

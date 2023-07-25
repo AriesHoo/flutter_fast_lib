@@ -1,8 +1,7 @@
-import 'dart:ui';
-
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide RefreshIndicator;
+import 'package:flutter_fast_lib/src/fast_lib_init.dart';
 import 'package:flutter_fast_lib/src/util/fast_log_util.dart';
 import 'package:flutter_fast_lib/src/util/fast_platform_util.dart';
 import 'package:flutter_fast_lib/src/view_model/fast_list_view_model.dart';
@@ -120,7 +119,7 @@ mixin FastRefreshListMixin {
   LoadIndicator footerBuilder(RefreshController controller, bool? footerSafe) {
     bool safe = footerSafe ?? footerSafeArea;
     double safeBottomHeight =
-        safe ? MediaQueryData.fromWindow(window).padding.bottom : 0;
+        safe ? MediaQueryData.fromView(View.of(fastLibNavigatorKey.currentContext!)).padding.bottom : 0;
     return CustomFooter(
       height: footerHeight + safeBottomHeight,
       onClick: () => controller.requestLoading(),

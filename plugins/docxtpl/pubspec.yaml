@@ -6,8 +6,8 @@ funding:
  - https://www.paypal.me/donnclab
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
-  flutter: ">=1.17.0"
+  sdk: '>=2.17.0 <4.0.0'
+  flutter: ">=2.5.0"
 
 dependencies:
   flutter:

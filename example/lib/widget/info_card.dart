@@ -13,10 +13,6 @@ class InfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(10),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Text(info),
-      ),
       shadowColor: Colors.purpleAccent,
       elevation: 10,
       shape: RoundedRectangleBorder(
@@ -26,6 +22,10 @@ class InfoCard extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary.withOpacity(0.075),
           style: BorderStyle.solid,
         ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Text(info),
       ),
     );
   }

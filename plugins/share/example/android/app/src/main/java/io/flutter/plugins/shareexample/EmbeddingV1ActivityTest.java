@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package io.flutter.plugins.shareexample;
+package plugins.share.example.android.app.src.main.java.io.flutter.plugins.shareexample;
 
 import androidx.test.rule.ActivityTestRule;
 import dev.flutter.plugins.integration_test.FlutterTestRunner;

@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package io.flutter.plugins.share;
+package plugins.share.android.src.main.java.io.flutter.plugins.share;
 
 import java.io.*;
 import java.util.List;

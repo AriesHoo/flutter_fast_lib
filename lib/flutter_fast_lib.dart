@@ -8,7 +8,7 @@ export 'package:dio/dio.dart';
 export 'package:lifecycle/lifecycle.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:pull_to_refresh/pull_to_refresh.dart';
-export 'package:webview_flutter/webview_flutter.dart';
+export 'package:webview_flutter/webview_flutter.dart' hide ProgressCallback;
 
 export 'src/basis/basis_error_type.dart';
 export 'src/basis/basis_provider_widget.dart';
@@ -17,7 +17,8 @@ export 'src/basis/basis_view_model.dart';
 export 'src/basis/basis_view_state.dart';
 export 'src/basis/basis_view_state_error.dart';
 export 'src/enum/fast_platform_type.dart';
-export 'src/fast_lib_init.dart' show FastLibInit, currentContext;
+export 'src/fast_lib_init.dart'
+    show FastLibInit, currentContext, KeyboardBuilder;
 export 'src/fast_manager.dart';
 export 'src/mixin/default_fast_lib_mixin.dart' hide defaultFastLibMixin;
 export 'src/mixin/fast_adaptive_mixin.dart';
@@ -29,7 +30,6 @@ export 'src/mixin/fast_quit_app_mixin.dart';
 export 'src/mixin/fast_refresh_list_mixin.dart';
 export 'src/mixin/fast_text_mixin.dart';
 export 'src/mixin/fast_toast_mixin.dart';
-export 'src/mixin/fast_web_view_mixin.dart';
 export 'src/model/fast_main_model.dart';
 export 'src/model/fast_tab_bar_model.dart';
 export 'src/network/exception/fast_failed_exception.dart';

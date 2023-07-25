@@ -104,7 +104,7 @@ class FastLogInterceptor extends Interceptor {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) async {
+  void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (error) {
       beforePrint('*** DioErrorStart***');
       beforePrint('uri: ${err.requestOptions.uri}');

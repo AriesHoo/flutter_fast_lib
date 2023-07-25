@@ -109,11 +109,11 @@ class FastPlatformUtil {
   static Future<String> getBrand() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
-      return await deviceInfo.androidInfo.then((value) => '${value.brand}');
+      return await deviceInfo.androidInfo.then((value) => value.brand);
     } else if (Platform.isIOS) {
       ///iPhone/iPad
       return await deviceInfo.iosInfo
-          .then((value) => value.localizedModel ?? '');
+          .then((value) => value.localizedModel);
     } else if (Platform.isWindows) {
       return await deviceInfo.windowsInfo.then((value) => value.computerName);
     } else if (Platform.isLinux) {
@@ -127,10 +127,10 @@ class FastPlatformUtil {
   static Future<String> getModel() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (isAndroid) {
-      return await deviceInfo.androidInfo.then((value) => '${value.model}');
+      return await deviceInfo.androidInfo.then((value) => value.model);
     } else if (isIOS) {
       return await deviceInfo.iosInfo
-          .then((value) => value.utsname.machine ?? '');
+          .then((value) => value.utsname.machine);
     } else if (isMacOS) {
       return await deviceInfo.macOsInfo.then((value) => value.model);
     } else if (isWindows) {
@@ -146,10 +146,10 @@ class FastPlatformUtil {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (isAndroid) {
       return await deviceInfo.androidInfo
-          .then((value) =>  '${value.version.release}');
+          .then((value) =>  value.version.release);
     } else if (isIOS) {
       return await deviceInfo.iosInfo
-          .then((value) => value.systemVersion ?? '');
+          .then((value) => value.systemVersion);
     } else {
       return '';
     }
@@ -170,7 +170,7 @@ class FastPlatformUtil {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       AndroidDeviceInfo info = await deviceInfo.androidInfo;
-      return info.version.sdkInt! >= 23;
+      return info.version.sdkInt >= 23;
     } else {
       return true;
     }
@@ -181,7 +181,7 @@ class FastPlatformUtil {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       AndroidDeviceInfo info = await deviceInfo.androidInfo;
-      return info.version.sdkInt! >= 26;
+      return info.version.sdkInt >= 26;
     } else {
       return true;
     }

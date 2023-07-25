@@ -1,406 +1,119 @@
-import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_fast_lib/flutter_fast_lib.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-///WebView加载网页封装
-class FastWebViewPage extends StatefulWidget {
-  const FastWebViewPage({
-    Key? key,
-    this.initialUrl = '',
-    this.onWebViewCreated,
-    this.navigationDelegate,
-    this.onPageStarted,
-    this.onPageFinished,
-    this.onProgress,
-    this.showAppBar = true,
-    this.toolbarHeight,
-    this.flexibleSpace,
-    this.backgroundColor,
-    this.titleTextStyle,
-    this.toolbarTextStyle,
-    this.iconTheme,
-    this.actionsIconTheme,
-    this.systemOverlayStyle,
-    this.title,
-    this.loadingTitle = 'Loading...',
-    this.titleBuilder,
-    this.leadingBuilder,
-    this.actionsBuilder,
-    this.floatingActionButtonBuilder,
-    this.bottomNavigationBarBuilder,
-  }) : super(key: key);
-
-  final String initialUrl;
-  final WebViewCreatedCallback? onWebViewCreated;
-  final NavigationDelegate? navigationDelegate;
-  final PageStartedCallback? onPageStarted;
-  final PageFinishedCallback? onPageFinished;
-  final Function(int progress, WebViewController? controller)? onProgress;
-
-  ///是否显示AppBar
-  final bool showAppBar;
-  final double? toolbarHeight;
-  final Widget? flexibleSpace;
-  final Color? backgroundColor;
-  final TextStyle? titleTextStyle;
-  final TextStyle? toolbarTextStyle;
-  final IconThemeData? iconTheme;
-  final IconThemeData? actionsIconTheme;
-  final SystemUiOverlayStyle? systemOverlayStyle;
-
-  ///标题--不为空则直接显示
-  final String? title;
-  final String? loadingTitle;
-
-  ///title 自定义
-  final Widget Function(
-          BuildContext context, String title, WebViewController controller)?
-      titleBuilder;
-
-  ///leading自定义
-  final Widget Function(
-          BuildContext context, Future<WebViewController> controllerFuture)?
-      leadingBuilder;
-
-  ///action自定义
-  final List<Widget> Function(
-          BuildContext context, Future<WebViewController> controllerFuture)?
-      actionsBuilder;
-
-  ///floatingActionButton自定义
-  final Widget Function(
-          BuildContext context, Future<WebViewController> controllerFuture)?
-      floatingActionButtonBuilder;
-
-  ///bottomNavigationBar自定义
-  final Widget Function(
-          BuildContext context, Future<WebViewController> controllerFuture)?
-      bottomNavigationBarBuilder;
-
-  @override
-  _FastWebViewPageState createState() => _FastWebViewPageState();
-}
-
-class _FastWebViewPageState extends State<FastWebViewPage> {
-  ///网页标题
-  final ValueNotifier<String> _onTitle = ValueNotifier('');
-
-  ///控制器
-  WebViewController? _webViewController;
-
-  ///WebViewController Completer
-  final Completer<WebViewController> _controllerCompleter =
-      Completer<WebViewController>();
-
-  ///title 自定义
-  Widget Function(
-          BuildContext context, String title, WebViewController controller)?
-      _titleBuilder;
-
-  ///leading自定义
-  Widget Function(
-          BuildContext context, Future<WebViewController> controllerFuture)?
-      _leadingBuilder;
-
-  ///action自定义
-  List<Widget> Function(
-          BuildContext context, Future<WebViewController> controllerFuture)?
-      _actionsBuilder;
-
-  ///floatingActionButton自定义
-  Widget Function(
-          BuildContext context, Future<WebViewController> controllerFuture)?
-      _floatingActionButtonBuilder;
-
-  ///bottomNavigationBar自定义
-  Widget Function(
-          BuildContext context, Future<WebViewController> controllerFuture)?
-      _bottomNavigationBarBuilder;
-
-  @override
-  void initState() {
-    super.initState();
-
-    ///无固定title则显示loadingTitle
-    _onTitle.value = widget.title ??
-        widget.loadingTitle ??
-        FastManager.getInstance().webViewMixin.webLoadingTitle;
-    _titleBuilder = widget.titleBuilder ??
-        FastManager.getInstance().webViewMixin.webTitleBuilder;
-    _leadingBuilder = widget.leadingBuilder ??
-        FastManager.getInstance().webViewMixin.webLeadingBuilder;
-    _actionsBuilder = widget.actionsBuilder ??
-        FastManager.getInstance().webViewMixin.webActionsBuilder;
-    _floatingActionButtonBuilder = widget.floatingActionButtonBuilder ??
-        FastManager.getInstance().webViewMixin.webFloatingActionButtonBuilder;
-    _bottomNavigationBarBuilder = widget.bottomNavigationBarBuilder ??
-        FastManager.getInstance().webViewMixin.webBottomNavigationBarBuilder;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: widget.showAppBar
-          ? AppBar(
-              toolbarHeight: widget.toolbarHeight,
-              flexibleSpace: widget.flexibleSpace,
-              backgroundColor: widget.backgroundColor,
-              leading: _leadingBuilder != null
-                  ? _leadingBuilder!(context, _controllerCompleter.future)
-                  : null,
-              title: ValueListenableBuilder<String>(
-                valueListenable: _onTitle,
-                builder: (context, value, child) => _titleBuilder != null
-                    ? _titleBuilder!(context, value, _webViewController!)
-                    : Text(value),
-              ),
-              actions: _actionsBuilder != null
-                  ? _actionsBuilder!(context, _controllerCompleter.future)
-                  : null,
-              titleTextStyle: widget.titleTextStyle,
-              toolbarTextStyle: widget.toolbarTextStyle,
-              iconTheme: widget.iconTheme,
-              actionsIconTheme: widget.actionsIconTheme,
-              systemOverlayStyle: widget.systemOverlayStyle,
-            )
-          : null,
-      body: FastWebView(
-        initialUrl: widget.initialUrl,
-        navigationDelegate: widget.navigationDelegate,
-        onWebViewCreated: (controller) {
-          _webViewController = controller;
-          _controllerCompleter.complete(controller);
-          if (widget.onWebViewCreated != null) {
-            widget.onWebViewCreated!.call(controller);
-          }
-        },
-        onPageStarted: widget.onPageStarted,
-        onPageFinished: widget.onPageFinished,
-        onProgress: (progress) {
-          _getTitle();
-          widget.onProgress?.call(progress, _webViewController);
-        },
-      ),
-      floatingActionButton: _floatingActionButtonBuilder != null
-          ? _floatingActionButtonBuilder!(context, _controllerCompleter.future)
-          : null,
-      bottomNavigationBar: _bottomNavigationBarBuilder != null
-          ? _bottomNavigationBarBuilder!(context, _controllerCompleter.future)
-          : null,
-    );
-  }
-
-  ///获取标题
-  _getTitle() {
-    if (_webViewController == null || !widget.showAppBar) {
-      return;
-    }
-    _webViewController!.getTitle().then((value) {
-      FastLogUtil.e('title:$value', tag: 'getTitleTag');
-      if (ObjectUtil.isNotEmpty(value) && value!.indexOf('http') != 0) {
-        _onTitle.value = value;
-      }
-    });
-  }
-}
-
-///基础WebView--基于[WebView] 增加默认进度条
-///默认配置通过[FastWebViewMixin]
+///基础WebView--基于[WebViewWidget] 增加默认进度条
 class FastWebView extends StatefulWidget {
   const FastWebView({
-    Key? key,
+    super.key,
     required this.initialUrl,
+    this.onPermissionRequest,
     this.onWebViewCreated,
-    this.javascriptMode,
-    this.javascriptChannels,
-    this.navigationDelegate,
     this.gestureRecognizers,
-    this.onPageStarted,
-    this.onPageFinished,
+    this.onNavigationRequest,
     this.onProgress,
-    this.onWebResourceError,
-    this.debuggingEnabled,
-    this.gestureNavigationEnabled,
-    this.userAgent,
-    this.initialMediaPlaybackPolicy,
-    this.allowsInlineMediaPlayback,
-    this.progressHeight,
-    this.progressColor,
-    this.progressBackgroundColor,
-    this.progressValueColor,
     this.progressBuilder,
-  }) : super(key: key);
+  });
 
-  final String? initialUrl;
-  final WebViewCreatedCallback? onWebViewCreated;
+  ///需要加载url-网络地址
+  final String initialUrl;
+
+  ///WebView请求权限
+  final void Function(WebViewPermissionRequest request)? onPermissionRequest;
+
+  ///WebViewController 创建回调
+  final void Function(WebViewController controller)? onWebViewCreated;
   final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers;
-  final JavascriptMode? javascriptMode;
-  final Set<JavascriptChannel>? javascriptChannels;
-  final NavigationDelegate? navigationDelegate;
-  final bool? allowsInlineMediaPlayback;
-  final PageStartedCallback? onPageStarted;
-  final PageFinishedCallback? onPageFinished;
-  final PageLoadingCallback? onProgress;
-  final WebResourceErrorCallback? onWebResourceError;
-  final bool? debuggingEnabled;
-  final bool? gestureNavigationEnabled;
-  final String? userAgent;
-  final AutoMediaPlaybackPolicy? initialMediaPlaybackPolicy;
 
-  ///进度条高度
-  final double? progressHeight;
-  final Color? progressColor;
-  final Color? progressBackgroundColor;
+  ///可用于拦截是否加载url
+  final NavigationRequestCallback? onNavigationRequest;
 
-  ///进度条颜色
-  final Animation<Color?>? progressValueColor;
+  ///网页加载进度-获取标题头
+  final ProgressCallback? onProgress;
 
-  ///进度条完全自定义
+  ///完全自定义进度条
   final Widget Function(
-          BuildContext context, int progress, WebViewController controller)?
-      progressBuilder;
+    BuildContext context,
+    int progress,
+    WebViewController controller,
+  )? progressBuilder;
 
   @override
-  _FastWebViewState createState() => _FastWebViewState();
+  State<FastWebView> createState() => _FastWebViewState();
 }
 
 class _FastWebViewState extends State<FastWebView> {
+  ///WebViewController
+  late final WebViewController _controller;
+
   ///网页加载进度
   final ValueNotifier<int> _onProgress = ValueNotifier(0);
-
-  ///WebViewController
-  WebViewController? _webViewController;
-
-  ///完全自定义进度条
-  Widget Function(
-          BuildContext context, int progress, WebViewController controller)?
-      _progressBuilder;
 
   @override
   void initState() {
     super.initState();
-    _progressBuilder ??= FastManager.getInstance().webViewMixin.progressBuilder;
+    _controller = WebViewController(
+      onPermissionRequest: widget.onPermissionRequest,
+    )
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onNavigationRequest: widget.onNavigationRequest,
 
-    ///Android环境
-    if (FastPlatformUtil.isAndroid) {
-      WebView.platform = SurfaceAndroidWebView();
-    }
+          ///加载完成
+          onPageFinished: (url) {
+            _onProgress.value = 100;
+          },
+
+          ///进度变化
+          onProgress: (progress) {
+            _onProgress.value = progress;
+
+            ///回调进度
+            widget.onProgress?.call(progress);
+          },
+        ),
+      );
+
+    ///创建成功回调
+    widget.onWebViewCreated?.call(_controller);
+
+    ///加载网页
+    _controller.loadRequest(Uri.parse(widget.initialUrl));
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        ///顶部进度条
         ValueListenableBuilder<int>(
           valueListenable: _onProgress,
           builder: (context, progress, child) {
-            return _progressBuilder == null
-                ? SizedBox(
-                    height: progress != 100
-                        ? widget.progressHeight ??
-                            FastManager.getInstance()
-                                .webViewMixin
-                                .progressHeight
-                        : 0,
-                    child: LinearProgressIndicator(
-                      backgroundColor: widget.progressBackgroundColor ??
-                          FastManager.getInstance()
-                              .webViewMixin
-                              .progressBackgroundColor,
-                      value: progress / 100,
-                      color: widget.progressColor ??
-                          FastManager.getInstance().webViewMixin.progressColor,
-                      valueColor: widget.progressValueColor ??
-                          FastManager.getInstance()
-                              .webViewMixin
-                              .progressValueColor,
-                    ),
-                  )
-                : _progressBuilder!(context, progress, _webViewController!);
+            Widget progressWidget =
+                widget.progressBuilder?.call(context, progress, _controller) ??
+                    SizedBox(
+                      height: progress != 100 ? 2 : 0,
+                      child: LinearProgressIndicator(
+                        backgroundColor: Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withOpacity(0.4),
+                        value: progress / 100,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    );
+            return progressWidget;
           },
         ),
         Expanded(
-          child: WebView(
-            initialUrl: widget.initialUrl,
-            onWebViewCreated: (controller) {
-              _webViewController = controller;
-              if (widget.onWebViewCreated != null) {
-                widget.onWebViewCreated!.call(controller);
-              }
-            },
-            javascriptMode: widget.javascriptMode ??
-                FastManager.getInstance().webViewMixin.javascriptMode,
-            javascriptChannels: widget.javascriptChannels ??
-                FastManager.getInstance().webViewMixin.javascriptChannels,
-            navigationDelegate: widget.navigationDelegate ??
-                FastManager.getInstance().webViewMixin.navigationDelegate,
-            gestureRecognizers: widget.gestureRecognizers,
-            onPageStarted: (str) {
-              if (widget.onPageStarted != null) {
-                widget.onPageStarted!.call(str);
-              }
-              if (FastManager.getInstance().webViewMixin.onWebPageStarted !=
-                  null) {
-                FastManager.getInstance()
-                    .webViewMixin
-                    .onWebPageStarted!
-                    .call(str, _webViewController);
-              }
-            },
-            onPageFinished: (str) {
-              _onProgress.value = 100;
-              if (widget.onPageFinished != null) {
-                widget.onPageFinished!.call(str);
-              }
-              if (FastManager.getInstance().webViewMixin.onWebPageFinished !=
-                  null) {
-                FastManager.getInstance()
-                    .webViewMixin
-                    .onWebPageFinished!
-                    .call(str, _webViewController);
-              }
-            },
-            onProgress: (progress) {
-              _onProgress.value = progress;
-              if (widget.onProgress != null) {
-                widget.onProgress!.call(progress);
-              }
-              if (FastManager.getInstance().webViewMixin.onWebProgress !=
-                  null) {
-                FastManager.getInstance()
-                    .webViewMixin
-                    .onWebProgress!
-                    .call(progress, _webViewController);
-              }
-            },
-            onWebResourceError: (error) {
-              ///错误也返回进度为100--毕竟已经做完了相关加载操作
-              _onProgress.value = 100;
-              if (widget.onWebResourceError != null) {
-                widget.onWebResourceError!.call(error);
-              }
-            },
-            debuggingEnabled: widget.debuggingEnabled ??
-                FastManager.getInstance().webViewMixin.debuggingEnabled,
-            gestureNavigationEnabled: widget.gestureNavigationEnabled ??
-                FastManager.getInstance().webViewMixin.gestureNavigationEnabled,
-            userAgent: widget.userAgent ??
-                FastManager.getInstance().webViewMixin.userAgent,
-            initialMediaPlaybackPolicy: widget.initialMediaPlaybackPolicy ??
-                FastManager.getInstance()
-                    .webViewMixin
-                    .initialMediaPlaybackPolicy,
-            allowsInlineMediaPlayback: widget.allowsInlineMediaPlayback ??
-                FastManager.getInstance()
-                    .webViewMixin
-                    .allowsInlineMediaPlayback,
+          child: WebViewWidget(
+            controller: _controller,
+            gestureRecognizers: widget.gestureRecognizers ??
+                const <Factory<OneSequenceGestureRecognizer>>{},
           ),
-          flex: 1,
-        )
+        ),
       ],
     );
   }

@@ -8,6 +8,6 @@ class FastTokenException implements Exception {
 
   @override
   String toString() {
-    return message ?? 'FastTokenException';
+    return 'FastTokenException{message: $message,code:$code}';
   }
 }

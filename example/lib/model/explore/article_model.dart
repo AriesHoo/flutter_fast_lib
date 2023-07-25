@@ -17,7 +17,7 @@ class ArticleModel {
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        ArticleItemModel item =  ArticleItemModel.fromJson(v);
+        ArticleItemModel item = ArticleItemModel.fromJson(v);
         item.parseTimeLong();
         data!.add(item);
       });
@@ -103,7 +103,7 @@ class ArticleItemModel {
     } else {
       str = '来自 $siteName 的报道';
     }
-    return str + "\n" + '扫码查看详情';
+    return "$str\n扫码查看详情";
   }
 
   String getSummary() {
@@ -130,8 +130,7 @@ class ArticleItemModel {
       if (newsArray != null) {
         NewsArray item = newsArray![0];
         back =
-            (newsArray!.length > 1 ? item.siteName : item.siteName).toString() +
-                ' $timeStr';
+            '${newsArray!.length > 1 ? item.siteName : item.siteName} $timeStr';
       }
     }
     return back;
@@ -142,10 +141,10 @@ class ArticleItemModel {
     String targetTime = createdAt == null ? publishDate! : createdAt!;
     try {
       String time =
-      targetTime.replaceAll("Z", "").replaceAll("T", " ").substring(0, 19);
+          targetTime.replaceAll("Z", "").replaceAll("T", " ").substring(0, 19);
 
       ///因服务返回时间为UTC时间--即0时区时间且将本地时间同步转换为utc/local时间即可算出时间差
-      DateTime createTime = DateTime.parse(time + "+00:00").toLocal();
+      DateTime createTime = DateTime.parse("$time+00:00").toLocal();
       DateTime nowTime = DateTime.now().toLocal();
       Duration hourDiff = nowTime.difference(createTime);
       int dayDiff = nowTime.day - createTime.day;
@@ -170,7 +169,7 @@ class ArticleItemModel {
       } else if (hourDiff.inHours > 0) {
         ///此处做了取整-readhub官方亦是如此操作
         timeStr =
-        " ${hourDiff.inHours + (hourDiff.inMinutes % 60 >= 30 ? 1 : 0)}小时前";
+            " ${hourDiff.inHours + (hourDiff.inMinutes % 60 >= 30 ? 1 : 0)}小时前";
       } else if (hourDiff.inMinutes > 0) {
         timeStr = " ${hourDiff.inMinutes}分钟前";
       } else {
@@ -189,7 +188,7 @@ class ArticleItemModel {
           .replaceAll("Z", "")
           .replaceAll("T", " ")
           .substring(0, 19);
-      DateTime dateTime = DateTime.parse(time + "+00:00").toUtc();
+      DateTime dateTime = DateTime.parse("$time+00:00").toUtc();
       publishTime = dateTime.millisecondsSinceEpoch;
     } catch (e) {
       FastLogUtil.e('e$e');
@@ -209,25 +208,25 @@ class ArticleItemModel {
 
   ArticleItemModel(
       {this.id,
-        this.newsArray,
-        this.createdAt,
-        this.eventData,
-        this.publishDate,
-        this.summary,
-        this.title,
-        this.updatedAt,
-        this.timeline,
-        this.order,
-        this.hasInstantView,
-        this.language,
-        this.extra});
+      this.newsArray,
+      this.createdAt,
+      this.eventData,
+      this.publishDate,
+      this.summary,
+      this.title,
+      this.updatedAt,
+      this.timeline,
+      this.order,
+      this.hasInstantView,
+      this.language,
+      this.extra});
 
   ArticleItemModel.fromJson(Map<String, dynamic> json) {
     id = json['id'].toString();
     if (json['newsArray'] != null) {
       newsArray = [];
       json['newsArray'].forEach((v) {
-        newsArray!.add( NewsArray.fromJson(v));
+        newsArray!.add(NewsArray.fromJson(v));
       });
     }
     createdAt = json['createdAt']?.trim();
@@ -312,14 +311,14 @@ class NewsArray {
     String targetTime = publishDate!;
     try {
       String time =
-      targetTime.replaceAll("Z", "").replaceAll("T", " ").substring(0, 19);
+          targetTime.replaceAll("Z", "").replaceAll("T", " ").substring(0, 19);
 
       ///因服务返回时间为UTC时间--即0时区时间将时间转换为本地时间即可正常显示
-      DateTime createTime = DateTime.parse(time + "+00:00").toLocal();
+      DateTime createTime = DateTime.parse("$time+00:00").toLocal();
       timeStr =
           createTime.toIso8601String().replaceAll("T", " ").substring(5, 16);
     } catch (e) {
-      FastLogUtil.v("parseTimeLong:" + e.toString());
+      FastLogUtil.v("parseTimeLong:$e");
     }
     return timeStr;
   }
@@ -334,7 +333,7 @@ class NewsArray {
     if (siteName != null || siteName!.isEmpty) {
       str = '来自 $siteName 的报道';
     }
-    return str + "\n" + '扫码查看详情';
+    return "$str\n扫码查看详情";
   }
 
   String getSummary() {
@@ -349,15 +348,15 @@ class NewsArray {
 
   NewsArray(
       {this.id,
-        this.url,
-        this.title,
-        this.siteName,
-        this.mobileUrl,
-        this.autherName,
-        this.duplicateId,
-        this.publishDate,
-        this.language,
-        this.statementType});
+      this.url,
+      this.title,
+      this.siteName,
+      this.mobileUrl,
+      this.autherName,
+      this.duplicateId,
+      this.publishDate,
+      this.language,
+      this.statementType});
 
   NewsArray.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -373,7 +372,7 @@ class NewsArray {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['url'] = url;
     data['title'] = title;
@@ -401,14 +400,14 @@ class EventData {
 
   EventData(
       {this.id,
-        this.topicId,
-        this.eventType,
-        this.entityId,
-        this.entityType,
-        this.entityName,
-        this.state,
-        this.createdAt,
-        this.updatedAt});
+      this.topicId,
+      this.eventType,
+      this.entityId,
+      this.entityType,
+      this.entityName,
+      this.state,
+      this.createdAt,
+      this.updatedAt});
 
   EventData.fromJson(Map<String, dynamic> json) {
     id = json['id'];

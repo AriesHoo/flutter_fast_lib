@@ -134,7 +134,7 @@ class FastTabBar extends StatefulWidget {
   static double kTextAndIconTabHeight = 72.0;
 
   @override
-  _FastTabBarState createState() => _FastTabBarState();
+  State<FastTabBar> createState() => _FastTabBarState();
 }
 
 class _FastTabBarState extends State<FastTabBar>
@@ -199,7 +199,7 @@ class _FastTabBarState extends State<FastTabBar>
     bool showTab = _tabBars.length > 1 || !widget.hideTabBarWhenSingle;
 
     ///Tab
-    Widget _tabBar = TabBar(
+    Widget tabBar = TabBar(
       tabs: _tabBars.map((e) => e.tab).toList(),
       controller: _tabController,
       isScrollable: widget.isScrollable,
@@ -226,35 +226,35 @@ class _FastTabBarState extends State<FastTabBar>
     );
 
     ///TabBar Size
-    Size _tabSize = showTab ? preferredTabSize : Size.zero;
+    Size tabSize = showTab ? preferredTabSize : Size.zero;
 
     ///尺寸定制化TabBar
-    PreferredSizeWidget _tabBarWidget = PreferredSize(
+    PreferredSizeWidget tabBarWidget = PreferredSize(
+      preferredSize: tabSize,
       child: showTab
-          ? _tabBar
+          ? tabBar
           : const SizedBox(),
-      preferredSize: _tabSize,
     );
 
     ///AppBar bottom
-    PreferredSizeWidget? _bottom = widget.tabBarInTitle ? null : _tabBarWidget;
+    PreferredSizeWidget? bottom = widget.tabBarInTitle ? null : tabBarWidget;
 
     ///appBar最终Size
-    Size _appSize = Size.fromHeight((widget.appBarSize != null
+    Size appSize = Size.fromHeight((widget.appBarSize != null
             ? widget.appBarSize!.height
             : kToolbarHeight) +
-        (_bottom?.preferredSize.height ?? 0.0));
+        (bottom?.preferredSize.height ?? 0.0));
 
     ///遍历TabBar子集
-    List<Widget> _listWidget = _tabBars.map(
+    List<Widget> listWidget = _tabBars.map(
       (e) {
         int index = _tabBars.indexOf(e);
         return ChildPageLifecycleWrapper(
           index: index,
-          child: e.page,
           wantKeepAlive: e.wantKeepAlive,
           onLifecycleEvent: (event) =>
               widget.onLifecycleEvent?.call(event, index, e.page),
+          child: e.page,
         );
       },
     ).toList();
@@ -265,23 +265,23 @@ class _FastTabBarState extends State<FastTabBar>
         ObjectUtil.isNotEmpty(widget.actions);
 
     ///最终title--将title回调回去由最终调用处理并可设置TabBar位置
-    Widget? _title = widget.titleBuilder != null
+    Widget? title = widget.titleBuilder != null
         ? widget.titleBuilder!(
             context,
-            widget.tabBarInTitle ? _tabBarWidget : null,
+            widget.tabBarInTitle ? tabBarWidget : null,
           )
         : null;
-    showAppBar = _title != null || showAppBar;
+    showAppBar = title != null || showAppBar;
     Widget container = Scaffold(
       backgroundColor: widget.backgroundColor,
       appBar: PreferredSize(
-        preferredSize: _appSize,
+        preferredSize: appSize,
         child: showAppBar
             ? AppBar(
                 leading: widget.leading,
                 actions: widget.actions,
-                title: _title ?? (widget.tabBarInTitle ? _tabBarWidget : null),
-                bottom: _bottom,
+                title: title ?? (widget.tabBarInTitle ? tabBarWidget : null),
+                bottom: bottom,
                 backgroundColor: widget.appBarBackgroundColor,
                 flexibleSpace: widget.flexibleSpace,
                 titleTextStyle: widget.titleTextStyle,
@@ -290,23 +290,23 @@ class _FastTabBarState extends State<FastTabBar>
                 actionsIconTheme: widget.actionsIconTheme,
                 systemOverlayStyle: widget.systemOverlayStyle,
               )
-            : _tabBarWidget,
+            : tabBarWidget,
       ),
       body: PageViewLifecycleWrapper(
         onLifecycleEvent: (event) =>
             widget.onLifecycleEvent?.call(event, -1, widget),
         child: widget.withPageView
             ? PageView(
-                children: _listWidget,
                 physics: widget.physics,
                 onPageChanged: (pageIndex) =>
                     _tabController.animateTo(pageIndex),
                 controller: _pageController,
+                children: listWidget,
               )
             : TabBarView(
                 physics: widget.physics,
                 controller: _tabController,
-                children: _listWidget,
+                children: listWidget,
               ),
       ),
       bottomNavigationBar: widget.bottomNavigationBar,

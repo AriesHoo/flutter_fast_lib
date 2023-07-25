@@ -1,13 +1,14 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=D:\Flutter\SDK\flutter
-FLUTTER_APPLICATION_PATH=D:\Flutter\Projects\flutter_fast_lib\plugins\share\example
+FLUTTER_ROOT=/Users/scta/develop/Flutter/SDK/flutter3.10.6
+FLUTTER_APPLICATION_PATH=/Users/scta/develop/Flutter/Projects/flutter_fast_lib_plus/plugins/share/example
 COCOAPODS_PARALLEL_CODE_SIGN=true
-FLUTTER_TARGET=lib\main.dart
+FLUTTER_TARGET=lib/main.dart
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.8
 FLUTTER_BUILD_NUMBER=1008
 EXCLUDED_ARCHS[sdk=iphonesimulator*]=i386
+EXCLUDED_ARCHS[sdk=iphoneos*]=armv7
 DART_OBFUSCATION=false
-TRACK_WIDGET_CREATION=false
+TRACK_WIDGET_CREATION=true
 TREE_SHAKE_ICONS=false
-PACKAGE_CONFIG=.packages
+PACKAGE_CONFIG=.dart_tool/package_config.json

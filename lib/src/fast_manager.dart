@@ -52,9 +52,6 @@ class FastManager {
   FastLoadingMixin _loadingMixin = defaultFastLibMixin;
 
   FastLoadingMixin get loadingMixin => _loadingMixin;
-  FastWebViewMixin _webViewMixin = defaultFastLibMixin;
-
-  FastWebViewMixin get webViewMixin => _webViewMixin;
 
   ///设置各个Mixin实例
   ///[DefaultFastLibMixin]可设置全部默认项-按需设置
@@ -69,7 +66,6 @@ class FastManager {
     FastLogMixin? logMixin,
     FastToastMixin? toastMixin,
     FastLoadingMixin? loadingMixin,
-    FastWebViewMixin? webViewMixin,
   }) {
     ///设置默认项目
     if (defaultMixin != null) {
@@ -84,7 +80,6 @@ class FastManager {
     _logMixin = logMixin ?? defaultFastLibMixin;
     _toastMixin = toastMixin ?? defaultFastLibMixin;
     _loadingMixin = loadingMixin ?? defaultFastLibMixin;
-    _webViewMixin = webViewMixin ?? defaultFastLibMixin;
     return _getInstance();
   }
 }

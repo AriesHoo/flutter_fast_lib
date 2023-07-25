@@ -1,3 +1,5 @@
+package plugins.share.example.android
+
 buildscript {
     repositories {
         google()

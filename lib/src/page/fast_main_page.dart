@@ -50,7 +50,7 @@ class FastMainPage extends StatefulWidget {
   final Function(LifecycleEvent event, int index)? onLifecycleEvent;
 
   @override
-  _FastMainPageState createState() => _FastMainPageState();
+  State<FastMainPage> createState() => _FastMainPageState();
 }
 
 class _FastMainPageState extends State<FastMainPage> {
@@ -91,10 +91,10 @@ class _FastMainPageState extends State<FastMainPage> {
               child: PageView.builder(
                 itemBuilder: (ctx, index) => ChildPageLifecycleWrapper(
                   index: index,
-                  child: _listTab[index].page,
                   wantKeepAlive: _listTab[index].wantKeepAlive,
                   onLifecycleEvent: (event) =>
                       widget.onLifecycleEvent?.call(event, index),
+                  child: _listTab[index].page,
                 ),
                 itemCount: _listTab.length,
                 controller: _pageController,

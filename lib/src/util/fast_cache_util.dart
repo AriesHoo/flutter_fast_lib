@@ -34,11 +34,11 @@ class FastCacheUtil {
     FastLogUtil.e('size:${_listDirectory.length}', tag: 'FastCacheUtil');
     double totalSize = 0.0;
     for (int i = 0; i < _listDirectory.length; i++) {
-      double _currentSize = await _loadCache(_listDirectory[i]);
+      double currentSize = await _loadCache(_listDirectory[i]);
       FastLogUtil.e(
-          '${_listDirectory[i].path};size:${renderSize(_currentSize).toLowerCase()}',
+          '${_listDirectory[i].path};size:${renderSize(currentSize).toLowerCase()}',
           tag: 'FastCacheUtil');
-      totalSize += _currentSize;
+      totalSize += currentSize;
     }
     return totalSize;
   }

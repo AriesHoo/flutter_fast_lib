@@ -7,7 +7,6 @@ import 'package:flutter_fast_lib/src/mixin/fast_quit_app_mixin.dart';
 import 'package:flutter_fast_lib/src/mixin/fast_refresh_list_mixin.dart';
 import 'package:flutter_fast_lib/src/mixin/fast_text_mixin.dart';
 import 'package:flutter_fast_lib/src/mixin/fast_toast_mixin.dart';
-import 'package:flutter_fast_lib/src/mixin/fast_web_view_mixin.dart';
 
 DefaultFastLibMixin defaultFastLibMixin = DefaultFastLibMixin();
 
@@ -23,6 +22,4 @@ class DefaultFastLibMixin
         FastDialogMixin,
         FastLogMixin,
         FastToastMixin,
-        FastLoadingMixin,
-        FastWebViewMixin {
-}
+        FastLoadingMixin {}

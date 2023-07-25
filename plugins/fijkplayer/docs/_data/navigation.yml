@@ -1,0 +1,83 @@
+header:
+  # - title:      Flutter dartdoc
+  #   url:        doc/reference/
+  - title:      GitHub
+    url:        https://github.com/befovy/fijkplayer
+  # - title:      Blog
+  #   url:        https://medium.com/google-exoplayer
+
+docs-en:
+  - title:
+    children:
+      - title: Home
+        url:   /docs/en/index.html
+  - title: Getting Started
+    children:
+      - title: Install
+        url:   /docs/en/install.html
+      - title: Hello World
+        url:   /docs/en/hello-world.html
+  - title: Dive into
+    children:
+      - title: Player State
+        url:   /docs/en/fijkstate.html
+      - title: Crop and Fit
+        url:   /docs/en/fijkfit.html
+  #     - title: Player API -- in progressing
+  #       url:   /docs/en/fijkplayer-api.html
+  #     - title: Custom UI -- in progressing
+  #       url:   /docs/en/custom-ui.html
+  #     - title: Error & Exception  -- in progressing
+  #       url:   /docs/en/error-exception.html
+  # - title: doc
+
+  - title: Languages
+    children:
+      - title: 中文
+        url:   /docs/zh/index.html
+
+docs-zh:
+  - title:
+    children:
+      - title: 首页
+        url:   /docs/zh/index.html
+  - title: 入门指南
+    children:
+      - title: 安装
+        url:   /docs/zh/install.html
+      - title: Hello World
+        url:   /docs/zh/hello-world.html
+  - title: 基础必读
+    children:
+      - title: 播放器状态
+        url:   /docs/zh/fijkstate.html
+      - title: 播放器接口
+        url:   /docs/zh/fijkplayer-api.html
+      - title: 填充与裁剪
+        url:   /docs/zh/fijkfit.html
+      - title: 个性化 UI
+        url:   /docs/zh/custom-ui.html
+      - title: 错误和异常
+        url:   /docs/zh/error-exception.html
+  - title: 高级进阶
+    children:
+      - title: 替换 ijkplayer
+        url:   /docs/zh/replace-ijkplayer.html
+  #     - title: 播放器选项
+  #     - title: 音频中断处理
+  #     - title: 响应 App 生命周期
+  - title: 附加内容
+    children:
+      - title: FAQ
+        url:   /docs/zh/faq.html
+      - title: 系统音量调节
+        url:   /docs/zh/system-volume.html
+      - title: 平台选项设置
+        url:   /docs/zh/host-option.html
+      - title: ijkplayer 内核 option
+        url:  /docs/zh/ijk-option.html
+  - title: 其他语言
+    children:
+      - title: English
+        url:   /docs/en/index.html
+

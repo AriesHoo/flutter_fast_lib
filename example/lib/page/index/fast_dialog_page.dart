@@ -51,12 +51,12 @@ class FastDialogPage extends StatelessWidget {
                     isScrollControlled: false,
                     backgroundColor: Colors.transparent,
                     builder: (context) => const FastDialog(
+                      maxWidth: double.infinity,
+                      alignment: Alignment.bottomCenter,
                       child: SizedBox(
                         height: 100,
                         width: double.infinity,
                       ),
-                      maxWidth: double.infinity,
-                      alignment: Alignment.bottomCenter,
                       // insetPadding: EdgeInsets.zero,
                     ),
                   )

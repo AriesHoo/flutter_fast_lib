@@ -17,7 +17,7 @@ class BasisProviderWidget<T extends ChangeNotifier> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _BasisProviderWidgetState<T> createState() => _BasisProviderWidgetState<T>();
+  State<BasisProviderWidget<T>> createState() => _BasisProviderWidgetState<T>();
 }
 
 class _BasisProviderWidgetState<T extends ChangeNotifier>
@@ -69,7 +69,7 @@ class BasisProviderWidget2<A extends ChangeNotifier, B extends ChangeNotifier>
   }) : super(key: key);
 
   @override
-  _BasisProviderWidgetState2<A, B> createState() =>
+  State<BasisProviderWidget2<A, B>> createState() =>
       _BasisProviderWidgetState2<A, B>();
 }
 

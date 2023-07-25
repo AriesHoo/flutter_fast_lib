@@ -1,0 +1,3 @@
+package plugins.fijkplayer.android
+
+rootProject.name = 'fijkplayer'
